@@ -3,24 +3,34 @@
 import { useState } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { Instagram, Menu, X } from 'lucide-react' // เพิ่ม icon Menu และ X
+import { Instagram, Menu, X } from 'lucide-react'
 
 export default function Navbar() {
   const { scrollY } = useScroll()
   const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // State สำหรับเปิด/ปิดเมนูมือถือ
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  // Logic: ตรวจจับการเลื่อนหน้าจอ
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0
-    if (latest > previous && latest > 150) {
-      setHidden(true)
-      setIsMobileMenuOpen(false) // ถ้าเลื่อนลง ให้ปิดเมนูมือถือด้วย
+    
+    // --- จุดที่แก้: เช็คขนาดหน้าจอก่อน ---
+    // ถ้าหน้าจอกว้างกว่า 768px (คือไซส์ md/Desktop) -> บังคับโชว์ตลอด (hidden = false)
+    const isDesktop = window.innerWidth >= 768
+
+    if (isDesktop) {
+      setHidden(false) 
     } else {
-      setHidden(false)
+      // ถ้าเป็นมือถือ -> ใช้ Logic เดิม (เลื่อนลงเกิน 150px แล้วซ่อน)
+      if (latest > previous && latest > 150) {
+        setHidden(true)
+        setIsMobileMenuOpen(false) // ปิดเมนูด้วยถ้าเลื่อนลง
+      } else {
+        setHidden(false)
+      }
     }
 
+    // ส่วน Effect พื้นหลังขุ่นๆ ยังทำงานเหมือนเดิมทั้งคู่
     if (latest > 50) {
       setScrolled(true)
     } else {
@@ -28,7 +38,7 @@ export default function Navbar() {
     }
   })
 
-  // เมนูที่เราใช้ร่วมกัน
+  // เมนู
   const menuItems = [
     { name: "Who we are", href: "#who-we-are" },
     { name: "Memories", href: "#memories" },
@@ -51,7 +61,7 @@ export default function Navbar() {
         <div 
           className={`
             flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500
-            ${scrolled || isMobileMenuOpen // ถ้าเปิดเมนูมือถือ ก็ให้พื้นหลังทึบด้วย
+            ${scrolled || isMobileMenuOpen 
               ? 'w-[95%] md:w-[60%] bg-white/90 backdrop-blur-md shadow-lg border border-[#B85C5C]/10' 
               : 'w-[95%] bg-transparent border border-transparent'
             }
@@ -62,7 +72,7 @@ export default function Navbar() {
             One for the Girls
           </Link>
           
-          {/* --- Desktop Menu (ซ่อนในมือถือ) --- */}
+          {/* --- Desktop Menu --- */}
           <div className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors ${scrolled ? 'text-[#6B5B5B]' : 'text-[#6B5B5B]'}`}>
             {menuItems.map((item) => (
               <Link key={item.name} href={item.href} className="hover:text-[#B85C5C] transition-colors relative group">
@@ -72,7 +82,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button (Desktop Only) */}
+          {/* CTA Button (Desktop) */}
           <a 
             href="https://www.instagram.com/oneforthegirls.official/" 
             target="_blank" 
@@ -83,7 +93,7 @@ export default function Navbar() {
             <span className="inline">Join Us</span>
           </a>
 
-          {/* --- Mobile Hamburger Button (แสดงเฉพาะมือถือ) --- */}
+          {/* --- Mobile Hamburger Button --- */}
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden text-[#4A4A4A] p-1"
@@ -93,7 +103,7 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* --- Mobile Menu Overlay (ส่วนที่เพิ่มมา) --- */}
+      {/* --- Mobile Menu Overlay --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -106,7 +116,7 @@ export default function Navbar() {
               <Link 
                 key={item.name} 
                 href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)} // กดแล้วปิดเมนู
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="text-2xl font-serif text-[#4A4A4A] hover:text-[#B85C5C] transition-colors"
               >
                 {item.name}
