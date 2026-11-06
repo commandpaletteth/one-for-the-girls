@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { CalendarHeart, Handshake, Instagram, MessageCircle, Sparkles, ChevronDown } from "lucide-react";
+import { CalendarHeart, Handshake, MapPin, MessageCircle, Sparkles, ChevronDown } from "lucide-react";
+import SocialIcon from "@/components/SocialIcon";
 import ContactForm from "@/components/ContactForm";
 import { Container, PageHeader, SectionHeading } from "@/components/Section";
 import type { Social } from "@/lib/content";
@@ -84,17 +85,18 @@ export default async function SayHelloPage({ params }: Props) {
                     <li key={s.url}>
                       <a
                         href={s.url}
-                        target="_blank"
+                        target={s.icon === "email" ? undefined : "_blank"}
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-3 font-medium text-primary hover:text-primary-dark"
                       >
-                        <Instagram size={18} /> {s.label}
-                        {s.label === "Instagram" && <span className="font-light text-muted">{site("instagram_handle")}</span>}
+                        <SocialIcon icon={s.icon} /> {s.handle}
                       </a>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 text-sm text-muted">{site("location")}</p>
+                <p className="mt-6 inline-flex items-center gap-2 text-sm text-muted">
+                  <MapPin size={16} /> {site("location")}
+                </p>
               </div>
             </aside>
           </div>

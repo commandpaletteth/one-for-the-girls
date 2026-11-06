@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { Instagram } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { NAV, type Social } from "@/lib/content";
 import { Container } from "./Section";
+import SocialIcon from "./SocialIcon";
 
 export default async function Footer() {
   const site = await getTranslations("Site");
@@ -38,11 +38,11 @@ export default async function Footer() {
                 <li key={s.url}>
                   <a
                     href={s.url}
-                    target="_blank"
+                    target={s.icon === "email" ? undefined : "_blank"}
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 transition-colors hover:text-primary"
                   >
-                    <Instagram size={16} /> {s.label}
+                    <SocialIcon icon={s.icon} size={16} /> {s.icon === "email" ? s.handle : s.label}
                   </a>
                 </li>
               ))}

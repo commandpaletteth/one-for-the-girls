@@ -2,15 +2,29 @@
   "Site": {
     "name": "One For The Girls",
     "slogan": "Turning your ideas into experiences",
-    "description": "A Bangkok community where women meet, try new things and make real friends through wellness, creative, sports and social events.",
-    "location": "Bangkok, Thailand",
+    "description": "One For The Girls creates exclusive events and experiences that give women in Bangkok the chance to try something new, discover new places and finally do the things they've always wanted to try.",
+    "location": "Bangkok | London",
     "instagram_handle": "@oneforthegirls.official",
     "instagram_url": "https://www.instagram.com/oneforthegirls.official/",
-    "email": "",
+    "email": "oneforthegirlsuk@gmail.com",
     "socials": [
       {
+        "icon": "instagram",
         "label": "Instagram",
+        "handle": "@oneforthegirls.official",
         "url": "https://www.instagram.com/oneforthegirls.official/"
+      },
+      {
+        "icon": "tiktok",
+        "label": "TikTok",
+        "handle": "@oneforthegirls.official",
+        "url": "https://www.tiktok.com/@oneforthegirls.official"
+      },
+      {
+        "icon": "email",
+        "label": "Email",
+        "handle": "oneforthegirlsuk@gmail.com",
+        "url": "mailto:oneforthegirlsuk@gmail.com"
       }
     ]
   },
@@ -80,16 +94,16 @@
   },
   "Home": {
     "meta_title": "One For The Girls | Turning your ideas into experiences",
-    "meta_description": "A Bangkok community where women meet, try new things and make real friends through wellness, creative, sports and social events.",
+    "meta_description": "One For The Girls creates exclusive events and experiences that give women in Bangkok the chance to try something new, discover new places and finally do the things they've always wanted to try.",
     "hero_eyebrow": "A community for women in Bangkok",
     "hero_title_1": "Turning your ideas ",
     "hero_title_highlight": "into experiences",
-    "hero_intro": "One For The Girls is where women meet, try new things and make real friends. Bring an idea, a friend or just yourself, and we'll turn it into an experience worth remembering.",
+    "hero_intro": "We create exclusive events and experiences that give women the opportunity to try something new, discover new places and finally do the things they've always wanted to try.",
     "cta_primary": "See what's on",
     "cta_secondary": "Join the community",
-    "about_eyebrow": "What we stand for",
+    "about_eyebrow": "Who we are",
     "about_title": "A space to show up as you are",
-    "about_text": "We believe the best friendships start with shared experiences. One For The Girls creates welcoming spaces for Thai and international women to connect, grow and have fun together.",
+    "about_text": "From wellness and fitness to food, educational workshops, creative activities and lifestyle, we're always looking to introduce our community to new brands, experiences and activities worth trying.",
     "values": [
       {
         "title": "Connection",
@@ -117,7 +131,7 @@
     "events_link": "See all events",
     "join_eyebrow": "Join our community",
     "join_club_name": "The Mailing Club",
-    "join_text": "Be the first to hear about new events, early-bird tickets and community news, straight to your inbox.",
+    "join_text": "Join 280+ girls on our mailing list and be the first to hear about new events, early-bird tickets and community news.",
     "join_placeholder": "Your email address",
     "join_button": "Sign me up",
     "join_note": "No spam. Unsubscribe anytime.",
@@ -280,17 +294,126 @@
     "meta_title": "Our Circle",
     "meta_description": "The brands and organisations supporting One For The Girls, and how to partner with us.",
     "eyebrow": "Our circle",
-    "title": "The brands behind the moments",
-    "intro": "We work with brands and organisations who share our love of bringing women together.",
+    "title": "We bring the community",
+    "intro": "We partner with brands, businesses and suppliers to bring new experiences and activities to our community.",
+    "glance_eyebrow": "Our community at a glance",
+    "glance_title": "Women who love to discover",
+    "glance_text": "Our audience includes Bangkok-based women (mostly between 25 and 35 years old) from a mix of backgrounds, nationalities and industries who are actively looking for new places to go, things to do and brands to discover.",
+    "traits_title": "Our community is",
+    "traits": [
+      "Social",
+      "Experience-driven",
+      "Open-minded",
+      "Friendly",
+      "Curious"
+    ],
+    "stats": [
+      {
+        "value": "3k+",
+        "label": "Instagram followers",
+        "note": "96% women"
+      },
+      {
+        "value": "130k",
+        "label": "Monthly reach",
+        "note": "Views per month"
+      },
+      {
+        "value": "15%",
+        "label": "Engagement rate",
+        "note": ""
+      },
+      {
+        "value": "280+",
+        "label": "Newsletter subscribers",
+        "note": ""
+      }
+    ],
+    "audience_title": "Where our girls are",
+    "audience": [
+      {
+        "value": "60%",
+        "label": "live in Bangkok long term"
+      },
+      {
+        "value": "17%",
+        "label": "are Thai locals"
+      },
+      {
+        "value": "21%",
+        "label": "are on a short-term stay or split their time between cities"
+      },
+      {
+        "value": "2%",
+        "label": "are just visiting"
+      }
+    ],
+    "stats_note": "Figures as of November 2026.",
+    "why_title": "Why partner with us",
+    "why_intro": "Our events give brands the opportunity to:",
+    "why": [
+      {
+        "title": "Get in front of an engaged community",
+        "desc": "Introduce your brand directly to women in Bangkok."
+      },
+      {
+        "title": "Create real-life experiences",
+        "desc": "Let our community experience your product, service or venue first-hand."
+      },
+      {
+        "title": "Reach new potential customers",
+        "desc": "Put your brand in front of women who are actively looking to discover and try new things."
+      },
+      {
+        "title": "Create authentic content and exposure",
+        "desc": "Build awareness through events, social content and genuine community experiences."
+      }
+    ],
+    "offer_title": "What we can offer",
+    "offer_intro": "Depending on the collaboration, we can help bring your brand to life through:",
+    "offer": [
+      {
+        "title": "Events",
+        "desc": "Introduce your brand directly to our community through an OFTG experience."
+      },
+      {
+        "title": "Social",
+        "desc": "Instagram Stories, Reels, posts, tags and mentions."
+      },
+      {
+        "title": "Content",
+        "desc": "Authentic content created around your product, service or experience."
+      },
+      {
+        "title": "Community",
+        "desc": "Direct access to girls who are interested in discovering new brands and experiences."
+      },
+      {
+        "title": "Word of mouth",
+        "desc": "Create experiences people naturally want to share with their friends and network."
+      }
+    ],
     "partners_title": "Our brand partners",
     "partners_intro": "Some of the brands we've worked with.",
     "partners": [
-      { "name": "Partner name" },
-      { "name": "Partner name" },
-      { "name": "Partner name" },
-      { "name": "Partner name" },
-      { "name": "Partner name" },
-      { "name": "Partner name" }
+      {
+        "name": "Partner name"
+      },
+      {
+        "name": "Partner name"
+      },
+      {
+        "name": "Partner name"
+      },
+      {
+        "name": "Partner name"
+      },
+      {
+        "name": "Partner name"
+      },
+      {
+        "name": "Partner name"
+      }
     ],
     "testimonials_title": "What our partners say",
     "testimonials": [
@@ -335,8 +458,8 @@
         ]
       }
     ],
-    "become_title": "Become a partner",
-    "become_text": "Have an idea or a brand that fits? Tell us about it and we'll get back to you.",
+    "become_title": "We bring the community. You bring something worth experiencing.",
+    "become_text": "Have a brand, venue or experience our girls would love? Tell us about it and we'll get back to you.",
     "become_button": "Send a partnership enquiry"
   },
   "GirlTalk": {

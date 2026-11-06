@@ -28,7 +28,7 @@ export type Article = {
   body: string[];
 };
 
-export type Social = { label: string; url: string };
+export type Social = { icon: "instagram" | "tiktok" | "email" | string; label: string; handle: string; url: string };
 
 export const NAV = [
   { key: "home", href: "/" },
