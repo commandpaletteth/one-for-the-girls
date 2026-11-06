@@ -12,10 +12,13 @@ export function mediaUrl(path?: string | null) {
 }
 
 /**
- * Admin preview: ONLY in `npm run dev` on your machine and ONLY while Supabase is not connected.
- * Lets you open /admin without logging in, showing the sample data from content/en.json. Nothing can be saved.
- * On Vercel NODE_ENV is "production", so this can never turn on there.
+ * Admin preview: open /admin without logging in, with the sample data from content/en.json. Nothing can be saved.
+ * Only while Supabase is NOT connected (turns itself off once the keys are added), and only:
+ *  - in `npm run dev` on your machine, or
+ *  - on a Vercel *Preview* deployment with ADMIN_DEMO=1 (so Jessica can try it). Never on Production.
  */
 export function isAdminPreview() {
-  return process.env.NODE_ENV === "development" && !hasSupabase();
+  if (hasSupabase()) return false;
+  if (process.env.NODE_ENV === "development") return true;
+  return process.env.ADMIN_DEMO === "1" && process.env.VERCEL_ENV === "preview";
 }

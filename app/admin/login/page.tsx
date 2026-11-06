@@ -17,7 +17,7 @@ export default function AdminLoginPage() {
             href="/admin"
             className="mt-6 block rounded-2xl border border-dashed border-primary/40 px-4 py-3 text-sm font-medium text-primary hover:bg-blush"
           >
-            Local preview: open the admin without logging in →
+            Preview: open the admin without logging in →
           </Link>
         )}
         {!connected && (

@@ -10,7 +10,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       <main className="min-w-0 flex-1 px-5 py-8 md:px-10 md:py-10">
         {preview && (
           <p className="mb-8 rounded-2xl border border-dashed border-primary/40 bg-blush px-4 py-3 text-sm text-primary-dark">
-            <strong>Preview mode</strong> (local only): not connected to Supabase, showing sample data. Nothing is saved.
+            <strong>Preview mode</strong>: not connected to the database yet, showing sample data. Look around freely, nothing is saved.
           </p>
         )}
         {children}
