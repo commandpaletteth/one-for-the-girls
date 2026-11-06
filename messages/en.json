@@ -1,0 +1,46 @@
+{
+  "Nav": {
+    "home": "Home",
+    "story": "Our Story",
+    "whats_on": "What's On",
+    "gallery": "The Gallery",
+    "circle": "Our Circle",
+    "girl_talk": "Girl Talk",
+    "hello": "Say Hello",
+    "cta": "Join Us",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "Footer": {
+    "explore": "Explore",
+    "connect": "Connect",
+    "rights": "© {year} One For The Girls. All rights reserved.",
+    "crafted": "Crafted by Command & Palette"
+  },
+  "Common": {
+    "photos": "Photos",
+    "video": "Video",
+    "logo": "Logo",
+    "all": "All",
+    "book": "Book now",
+    "booking_soon": "Booking opens soon",
+    "coming_soon": "Coming soon",
+    "read_more": "Read more",
+    "back_to_girl_talk": "Back to Girl Talk",
+    "photo_count": "{count, plural, =1 {1 item} other {# photos}}"
+  },
+  "Form": {
+    "name": "Your name",
+    "email": "Email",
+    "type": "What is it about?",
+    "message": "Message",
+    "submit": "Send message",
+    "not_connected": "Thanks! Our contact form isn't connected yet, so please message us on Instagram for now.",
+    "signup_not_connected": "Thanks! Sign-ups open soon. Follow us on Instagram in the meantime."
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "text": "The page you're looking for doesn't exist.",
+    "back": "Back to home"
+  }
+}

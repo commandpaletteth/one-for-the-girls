@@ -1,46 +1,33 @@
 import type { Config } from "tailwindcss";
 
+// Brand colours live here only. Components use these tokens, never raw hex.
 const config: Config = {
-  // ✅ ส่วน Content เหมือนเดิม ถูกต้องแล้ว
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
-      // ✅ 1. ตั้งค่า Font ให้ตรงกับ layout.tsx (Inter + Playfair)
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'serif'],
+        sans: ['"Inter Variable"', "sans-serif"],
+        serif: ['"Playfair Display Variable"', "serif"],
       },
-      
-      // ✅ 2. ใส่สี Rosegold Theme ลงไปตรงๆ (ไม่ต้องพึ่ง globals.css)
-      // แบบนี้รับรองสีมาแน่นอน ไม่เพี้ยน
       colors: {
-        background: "#FAF7F5", // สีครีมพื้นหลัง
-        foreground: "#4A4A4A", // สีตัวหนังสือหลัก (เทาเข้ม)
+        background: "#FAF7F5", // cream page background
+        foreground: "#4A4A4A", // main text
+        blush: "#F4E9E6", // soft section background
         primary: {
-          DEFAULT: "#B85C5C", // Rosegold หลัก
+          DEFAULT: "#B85C5C", // rose gold
+          dark: "#9E4F4F",
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#D4A373", // สีทองตุ่นๆ รอง
+          DEFAULT: "#D4A373", // muted gold
+          dark: "#8C6B4A",
           foreground: "#FFFFFF",
         },
-        accent: {
-          DEFAULT: "#556B2F", // สีเขียวใบไม้
-          foreground: "#FFFFFF",
-        },
-        muted: "#6B5B5B", // สีเทาอ่อนสำหรับตัวหนังสือรอง
-        border: "#E8C4C4", // สีขอบชมพูอ่อน
+        muted: "#6B5B5B", // secondary text
+        border: "#E8C4C4", // light pink border
       },
-
-      // ✅ 3. เพิ่ม Animation ที่ผมเขียนไว้ในโค้ดหน้าเว็บ (กัน error)
       animation: {
         "fade-in": "fadeIn 0.8s ease-out forwards",
-        "bounce-slow": "bounce 3s infinite",
-        "pulse-slow": "pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite", // อันนี้เอามาจาก C&P ให้ด้วย
       },
       keyframes: {
         fadeIn: {
@@ -50,7 +37,6 @@ const config: Config = {
       },
     },
   },
-  // ❌ ลบ plugin ออกก่อน เพราะเรายังไม่ได้ลง tailwindcss-animate เดี๋ยว error
-  plugins: [], 
+  plugins: [],
 };
 export default config;

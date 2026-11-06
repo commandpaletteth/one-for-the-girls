@@ -1,0 +1,468 @@
+{
+  "Site": {
+    "name": "One For The Girls",
+    "slogan": "Turning your ideas into experiences",
+    "description": "A Bangkok community where women meet, try new things and make real friends through wellness, creative, sports and social events.",
+    "location": "Bangkok, Thailand",
+    "instagram_handle": "@oneforthegirls.official",
+    "instagram_url": "https://www.instagram.com/oneforthegirls.official/",
+    "email": "",
+    "socials": [
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/oneforthegirls.official/"
+      }
+    ]
+  },
+  "Categories": {
+    "items": [
+      {
+        "id": "wellness",
+        "name": "Wellness",
+        "desc": "Slow mornings, mindful movement and moments to reset."
+      },
+      {
+        "id": "creative",
+        "name": "Creative",
+        "desc": "Hands-on workshops to make, paint, write and dream."
+      },
+      {
+        "id": "sports",
+        "name": "Sports & Fitness",
+        "desc": "Padel, runs and classes where everyone plays, whatever your level."
+      },
+      {
+        "id": "social",
+        "name": "Social",
+        "desc": "Dinners, brunches and nights out to meet new friends."
+      }
+    ]
+  },
+  "Events": {
+    "upcoming": [
+      {
+        "title": "Morning Reset: Yoga & Brunch",
+        "category": "wellness",
+        "date": "Date TBC",
+        "time": "Time TBC",
+        "location": "Bangkok",
+        "summary": "A gentle flow followed by a slow brunch together. All levels welcome.",
+        "booking_url": ""
+      },
+      {
+        "title": "Vision Board Workshop",
+        "category": "creative",
+        "date": "Date TBC",
+        "time": "Time TBC",
+        "location": "Bangkok",
+        "summary": "Map out the year you want with magazines, scissors and good company.",
+        "booking_url": ""
+      },
+      {
+        "title": "Padel for Beginners",
+        "category": "sports",
+        "date": "Date TBC",
+        "time": "Time TBC",
+        "location": "Bangkok",
+        "summary": "Pick up a racket, learn the basics and play a few friendly games.",
+        "booking_url": ""
+      },
+      {
+        "title": "Girls' Dinner Club",
+        "category": "social",
+        "date": "Date TBC",
+        "time": "Time TBC",
+        "location": "Bangkok",
+        "summary": "One long table, great food and a room full of new friends.",
+        "booking_url": ""
+      }
+    ]
+  },
+  "Home": {
+    "meta_title": "One For The Girls | Turning your ideas into experiences",
+    "meta_description": "A Bangkok community where women meet, try new things and make real friends through wellness, creative, sports and social events.",
+    "hero_eyebrow": "A community for women in Bangkok",
+    "hero_title_1": "Turning your ideas ",
+    "hero_title_highlight": "into experiences",
+    "hero_intro": "One For The Girls is where women meet, try new things and make real friends. Bring an idea, a friend or just yourself, and we'll turn it into an experience worth remembering.",
+    "cta_primary": "See what's on",
+    "cta_secondary": "Join the community",
+    "about_eyebrow": "What we stand for",
+    "about_title": "A space to show up as you are",
+    "about_text": "We believe the best friendships start with shared experiences. One For The Girls creates welcoming spaces for Thai and international women to connect, grow and have fun together.",
+    "values": [
+      {
+        "title": "Connection",
+        "desc": "Real friendships, built in person, one event at a time."
+      },
+      {
+        "title": "Confidence",
+        "desc": "A supportive space to try something new and be yourself."
+      },
+      {
+        "title": "Inclusion",
+        "desc": "Every woman is welcome, whether you've lived here for years or just arrived."
+      },
+      {
+        "title": "Growth",
+        "desc": "Workshops and conversations that leave you inspired, not just entertained."
+      }
+    ],
+    "what_eyebrow": "What we do",
+    "what_title": "Four ways to get involved",
+    "what_intro": "Every event fits into one of four themes, so there's always something for your mood.",
+    "events_eyebrow": "Upcoming events",
+    "events_title": "Save your spot",
+    "events_intro": "Our next gatherings. Spaces are limited, so book early.",
+    "events_link": "See all events",
+    "join_eyebrow": "Join our community",
+    "join_club_name": "The Mailing Club",
+    "join_text": "Be the first to hear about new events, early-bird tickets and community news, straight to your inbox.",
+    "join_placeholder": "Your email address",
+    "join_button": "Sign me up",
+    "join_note": "No spam. Unsubscribe anytime.",
+    "updates_eyebrow": "Latest updates",
+    "updates_title": "What's new",
+    "updates": [
+      {
+        "tag": "Announcement",
+        "date": "TBC",
+        "title": "Our new home online",
+        "text": "Everything One For The Girls in one place: events, stories and ways to get involved."
+      },
+      {
+        "tag": "Events",
+        "date": "TBC",
+        "title": "New events every month",
+        "text": "From wellness mornings to dinner clubs, check What's On for the latest dates."
+      },
+      {
+        "tag": "Partners",
+        "date": "TBC",
+        "title": "Brands, let's work together",
+        "text": "We're welcoming partners who share our values. See Our Circle to find out how."
+      }
+    ],
+    "instagram_eyebrow": "On Instagram",
+    "instagram_title": "Follow along",
+    "instagram_text": "Recent moments from our events and community."
+  },
+  "Story": {
+    "meta_title": "Our Story",
+    "meta_description": "How One For The Girls began and why we bring women together in Bangkok.",
+    "eyebrow": "Our story",
+    "title": "How it all began",
+    "intro": "The story behind One For The Girls.",
+    "paragraphs": [
+      "Our founder is writing this part. Check back soon for the story behind One For The Girls.",
+      "Placeholder paragraph: why the community started, who it's for and what makes it special."
+    ],
+    "quote": "Placeholder for a short quote from the founder.",
+    "quote_author": "Founder, One For The Girls",
+    "cta_title": "Come and be part of the next chapter",
+    "cta_button": "See what's on"
+  },
+  "WhatsOn": {
+    "meta_title": "What's On",
+    "meta_description": "Upcoming wellness, creative, sports and social events from One For The Girls, plus recaps of past gatherings.",
+    "eyebrow": "What's on",
+    "title": "Events for every mood",
+    "intro": "Browse upcoming events by theme, then catch up on the moments we've shared.",
+    "upcoming_title": "Upcoming events",
+    "recaps_title": "Event recaps",
+    "recaps_intro": "Photos, videos and highlights from past gatherings.",
+    "empty": "No events in this category yet. Check back soon.",
+    "recaps": [
+      {
+        "title": "Picnic in the Park",
+        "category": "social",
+        "date": "TBC",
+        "summary": "Short recap of the event goes here.",
+        "has_video": false
+      },
+      {
+        "title": "Padel Tennis",
+        "category": "sports",
+        "date": "TBC",
+        "summary": "Short recap of the event goes here.",
+        "has_video": true
+      },
+      {
+        "title": "Dream Board Workshop",
+        "category": "creative",
+        "date": "TBC",
+        "summary": "Short recap of the event goes here.",
+        "has_video": false
+      },
+      {
+        "title": "Sunrise Yoga",
+        "category": "wellness",
+        "date": "TBC",
+        "summary": "Short recap of the event goes here.",
+        "has_video": false
+      }
+    ]
+  },
+  "Gallery": {
+    "meta_title": "The Gallery",
+    "meta_description": "Event highlights, behind the scenes and community moments from One For The Girls.",
+    "eyebrow": "The gallery",
+    "title": "Moments we've made together",
+    "intro": "Event highlights, behind-the-scenes and everyday community moments.",
+    "types": [
+      {
+        "id": "highlights",
+        "name": "Event Highlights"
+      },
+      {
+        "id": "bts",
+        "name": "BTS"
+      },
+      {
+        "id": "community",
+        "name": "Community Moments"
+      },
+      {
+        "id": "videos",
+        "name": "Videos & Reels"
+      },
+      {
+        "id": "albums",
+        "name": "Photo Albums"
+      }
+    ],
+    "albums": [
+      {
+        "title": "Picnic in the Park",
+        "type": "highlights",
+        "category": "social",
+        "date": "TBC",
+        "count": 24
+      },
+      {
+        "title": "Setting up the Dream Board Workshop",
+        "type": "bts",
+        "category": "creative",
+        "date": "TBC",
+        "count": 12
+      },
+      {
+        "title": "Padel Tennis Reel",
+        "type": "videos",
+        "category": "sports",
+        "date": "TBC",
+        "count": 1
+      },
+      {
+        "title": "Girls' Dinner Club",
+        "type": "community",
+        "category": "social",
+        "date": "TBC",
+        "count": 18
+      },
+      {
+        "title": "Sunrise Yoga",
+        "type": "albums",
+        "category": "wellness",
+        "date": "TBC",
+        "count": 30
+      },
+      {
+        "title": "Workshop Highlights",
+        "type": "highlights",
+        "category": "creative",
+        "date": "TBC",
+        "count": 16
+      }
+    ]
+  },
+  "Circle": {
+    "meta_title": "Our Circle",
+    "meta_description": "The brands and organisations supporting One For The Girls, and how to partner with us.",
+    "eyebrow": "Our circle",
+    "title": "The brands behind the moments",
+    "intro": "We work with brands and organisations who share our love of bringing women together.",
+    "partners_title": "Our brand partners",
+    "partners_intro": "Some of the brands we've worked with.",
+    "partners": [
+      { "name": "Partner name" },
+      { "name": "Partner name" },
+      { "name": "Partner name" },
+      { "name": "Partner name" },
+      { "name": "Partner name" },
+      { "name": "Partner name" }
+    ],
+    "testimonials_title": "What our partners say",
+    "testimonials": [
+      {
+        "quote": "Partner testimonial goes here. A short quote about working with One For The Girls.",
+        "name": "Name",
+        "role": "Role, Brand"
+      },
+      {
+        "quote": "Partner testimonial goes here. A short quote about working with One For The Girls.",
+        "name": "Name",
+        "role": "Role, Brand"
+      }
+    ],
+    "options_title": "Ways to work with us",
+    "options": [
+      {
+        "title": "Event Sponsors",
+        "desc": "Put your brand in front of an engaged community of women at our events.",
+        "points": [
+          "Brand presence at events",
+          "Product sampling or goodie bags",
+          "Mentions across our social channels"
+        ]
+      },
+      {
+        "title": "Collaboration Opportunities",
+        "desc": "Co-create an experience with us, from workshops to pop-ups.",
+        "points": [
+          "Co-hosted workshops",
+          "Venue partnerships",
+          "Content collaborations"
+        ]
+      },
+      {
+        "title": "Partnership Packages",
+        "desc": "Longer-term packages for brands that share our values.",
+        "points": [
+          "Year-round visibility",
+          "Offers for our community",
+          "Packages tailored to your goals"
+        ]
+      }
+    ],
+    "become_title": "Become a partner",
+    "become_text": "Have an idea or a brand that fits? Tell us about it and we'll get back to you.",
+    "become_button": "Send a partnership enquiry"
+  },
+  "GirlTalk": {
+    "meta_title": "Girl Talk",
+    "meta_description": "Meaningful conversations, inspiration and useful reads from the One For The Girls community.",
+    "eyebrow": "Girl talk",
+    "title": "Real conversations, real inspiration",
+    "intro": "Stories, advice and honest chats about life, ambition and everything in between.",
+    "topics_title": "Topics",
+    "topics": [
+      {
+        "id": "life",
+        "name": "Life, Friendship & Relationships",
+        "desc": "Conversations about the people who shape us."
+      },
+      {
+        "id": "empowerment",
+        "name": "Women's Empowerment",
+        "desc": "Inspiring stories and advice."
+      },
+      {
+        "id": "wellness",
+        "name": "Wellness & Self-Care",
+        "desc": "Looking after your mind and body."
+      },
+      {
+        "id": "career",
+        "name": "Career & Ambition",
+        "desc": "Work, business and entrepreneurship."
+      },
+      {
+        "id": "lifestyle",
+        "name": "Lifestyle",
+        "desc": "Fashion, beauty, travel and experiences."
+      },
+      {
+        "id": "stories",
+        "name": "Personal Stories",
+        "desc": "Real stories from girls in the community."
+      }
+    ],
+    "articles_title": "Latest reads",
+    "articles": [
+      {
+        "slug": "article-one",
+        "title": "Article title goes here",
+        "topic": "life",
+        "date": "TBC",
+        "excerpt": "A short summary of the article to invite people to read more.",
+        "published": false,
+        "body": [
+          "First paragraph of the article."
+        ]
+      },
+      {
+        "slug": "article-two",
+        "title": "Article title goes here",
+        "topic": "career",
+        "date": "TBC",
+        "excerpt": "A short summary of the article to invite people to read more.",
+        "published": false,
+        "body": [
+          "First paragraph of the article."
+        ]
+      },
+      {
+        "slug": "article-three",
+        "title": "Article title goes here",
+        "topic": "stories",
+        "date": "TBC",
+        "excerpt": "A short summary of the article to invite people to read more.",
+        "published": false,
+        "body": [
+          "First paragraph of the article."
+        ]
+      }
+    ]
+  },
+  "Hello": {
+    "meta_title": "Say Hello",
+    "meta_description": "Get in touch with One For The Girls about events, partnerships or collaborations.",
+    "eyebrow": "Say hello",
+    "title": "We'd love to hear from you",
+    "intro": "Questions about an event, a partnership idea or just want to say hi? Drop us a message.",
+    "types": [
+      {
+        "id": "general",
+        "title": "General Enquiries",
+        "desc": "Anything else on your mind."
+      },
+      {
+        "id": "events",
+        "title": "Event Enquiries",
+        "desc": "Bookings, details or private events."
+      },
+      {
+        "id": "partnerships",
+        "title": "Partnership Enquiries",
+        "desc": "Sponsorships and partnership packages."
+      },
+      {
+        "id": "collab",
+        "title": "Collab Opportunities",
+        "desc": "Creators, venues and co-hosted events."
+      }
+    ],
+    "form_title": "Send us a message",
+    "social_title": "Find us on social",
+    "faq_title": "FAQs",
+    "faqs": [
+      {
+        "q": "Who can join One For The Girls?",
+        "a": "Every woman is welcome. Our community brings together Thai and international women in Bangkok."
+      },
+      {
+        "q": "How do I book an event?",
+        "a": "Each event has its own booking link on our What's On page. Spaces can be limited, so book early."
+      },
+      {
+        "q": "Can I come on my own?",
+        "a": "Absolutely. Plenty of girls come solo and leave with new friends."
+      },
+      {
+        "q": "I'm a brand. How can we work together?",
+        "a": "Take a look at Our Circle for the options, then send us a partnership enquiry."
+      }
+    ]
+  }
+}
