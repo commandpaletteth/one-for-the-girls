@@ -27,7 +27,7 @@
     "coming_soon": "Coming soon",
     "read_more": "Read more",
     "back_to_girl_talk": "Back to Girl Talk",
-    "photo_count": "{count, plural, =1 {1 item} other {# photos}}"
+    "photo_count": "{count, plural, =0 {No photos yet} =1 {1 item} other {# photos}}"
   },
   "Form": {
     "name": "Your name",
@@ -36,7 +36,13 @@
     "message": "Message",
     "submit": "Send message",
     "not_connected": "Thanks! Our contact form isn't connected yet, so please message us on Instagram for now.",
-    "signup_not_connected": "Thanks! Sign-ups open soon. Follow us on Instagram in the meantime."
+    "signup_not_connected": "Thanks! Sign-ups open soon. Follow us on Instagram in the meantime.",
+    "sent": "Thanks for your message! We'll get back to you soon.",
+    "error": "Something went wrong. Please try again, or message us on Instagram.",
+    "invalid": "Please check your name, email and message.",
+    "signup_done": "You're in! Welcome to the club.",
+    "signup_invalid": "Please enter a valid email address.",
+    "sending": "Sending..."
   },
   "NotFound": {
     "title": "Page not found",

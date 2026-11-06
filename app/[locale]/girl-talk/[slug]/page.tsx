@@ -3,15 +3,16 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import PhotoBox from "@/components/PhotoBox";
+import Media from "@/components/Media";
 import { Container, Eyebrow } from "@/components/Section";
-import { isSet, type Article, type Topic } from "@/lib/content";
+import { isSet, type Topic } from "@/lib/content";
+import { getArticle as loadArticle } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 async function getArticle(locale: string, slug: string) {
   const t = await getTranslations({ locale, namespace: "GirlTalk" });
-  const article = (t.raw("articles") as Article[]).find((a) => a.slug === slug && a.published);
+  const article = await loadArticle(slug);
   const topics = t.raw("topics") as Topic[];
   return { article, topic: topics.find((tp) => tp.id === article?.topic)?.name };
 }
@@ -41,7 +42,7 @@ export default async function ArticlePage({ params }: Props) {
         </Eyebrow>
         <h1 className="font-serif text-4xl leading-tight text-foreground md:text-5xl">{article.title}</h1>
         <p className="mt-5 text-lg font-light text-muted">{article.excerpt}</p>
-        <PhotoBox label={c("photos")} className="mt-10 aspect-[16/9] rounded-[2rem]" />
+        <Media src={article.image} alt={article.title} label={c("photos")} className="mt-10 aspect-[16/9] rounded-[2rem]" />
         <div className="mt-10 space-y-6 text-lg font-light leading-relaxed text-foreground/90">
           {article.body.map((p, i) => (
             <p key={i}>{p}</p>

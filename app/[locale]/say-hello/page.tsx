@@ -6,10 +6,10 @@ import SocialIcon from "@/components/SocialIcon";
 import ContactForm from "@/components/ContactForm";
 import { Container, PageHeader, SectionHeading } from "@/components/Section";
 import type { Social } from "@/lib/content";
+import { getFaqs } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 type EnquiryType = { id: string; title: string; desc: string };
-type Faq = { q: string; a: string };
 
 const ICONS: Record<string, typeof Sparkles> = {
   general: MessageCircle,
@@ -31,7 +31,7 @@ export default async function SayHelloPage({ params }: Props) {
   const site = await getTranslations("Site");
   const f = await getTranslations("Form");
   const types = t.raw("types") as EnquiryType[];
-  const faqs = t.raw("faqs") as Faq[];
+  const faqs = await getFaqs();
   const socials = site.raw("socials") as Social[];
 
   return (
@@ -72,6 +72,10 @@ export default async function SayHelloPage({ params }: Props) {
                     type: f("type"),
                     message: f("message"),
                     submit: f("submit"),
+                    sending: f("sending"),
+                    sent: f("sent"),
+                    error: f("error"),
+                    invalid: f("invalid"),
                     notConnected: f("not_connected"),
                   }}
                 />

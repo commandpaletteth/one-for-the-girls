@@ -4,6 +4,7 @@ import { useState } from "react";
 import FilterTabs from "./FilterTabs";
 import EventCard, { type EventCardLabels } from "./EventCard";
 import PhotoBox from "./PhotoBox";
+import Media from "./Media";
 import { SectionHeading } from "./Section";
 import { isSet, type Category, type EventItem, type Recap } from "@/lib/content";
 
@@ -53,7 +54,7 @@ export default function EventsBrowser({ categories, events, recaps, labels }: Pr
             {shownRecaps.map((r, i) => (
               <article key={`${r.title}-${i}`} className="grid gap-4 sm:grid-cols-[1fr_1fr]">
                 <div className="grid grid-cols-2 gap-2">
-                  <PhotoBox label={labels.photos} className="col-span-2 aspect-[4/3]" />
+                  <Media src={r.image} alt={r.title} label={labels.photos} className="col-span-2 aspect-[4/3]" />
                   <PhotoBox label={labels.photos} className="aspect-square" />
                   <PhotoBox
                     label={r.has_video ? labels.video : labels.photos}

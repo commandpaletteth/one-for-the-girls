@@ -3,13 +3,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, CalendarHeart, Camera, Check, Megaphone, Quote, Smartphone, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import PhotoBox from "@/components/PhotoBox";
+import Media from "@/components/Media";
+import { getPartners, getStats, getTestimonials } from "@/lib/data";
 import { Container, Eyebrow, PageHeader, SectionHeading } from "@/components/Section";
 import { btnPrimary } from "@/lib/utils";
 
 type Props = { params: Promise<{ locale: string }> };
-type Testimonial = { quote: string; name: string; role: string };
 type Option = { title: string; desc: string; points: string[] };
-type Stat = { value: string; label: string; note?: string };
 type Item = { title: string; desc: string };
 
 // Icons for "What we can offer", in the same order as Circle.offer in content/en.json.
@@ -26,11 +26,12 @@ export default async function CirclePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Circle");
   const c = await getTranslations("Common");
-  const partners = t.raw("partners") as { name: string }[];
-  const testimonials = t.raw("testimonials") as Testimonial[];
+  const [partners, testimonials, { headline: stats, audience, note: statsNote }] = await Promise.all([
+    getPartners(),
+    getTestimonials(),
+    getStats(),
+  ]);
   const options = t.raw("options") as Option[];
-  const stats = t.raw("stats") as Stat[];
-  const audience = t.raw("audience") as Stat[];
   const traits = t.raw("traits") as string[];
   const why = t.raw("why") as Item[];
   const offer = t.raw("offer") as Item[];
@@ -77,7 +78,7 @@ export default async function CirclePage({ params }: Props) {
               ))}
             </div>
           </div>
-          {t("stats_note") && <p className="mt-4 text-xs text-muted/70">{t("stats_note")}</p>}
+          {statsNote && <p className="mt-4 text-xs text-muted/70">{statsNote}</p>}
         </Container>
       </section>
 
@@ -130,7 +131,7 @@ export default async function CirclePage({ params }: Props) {
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {partners.map((p, i) => (
               <div key={i} className="text-center">
-                <PhotoBox label={c("logo")} kind="logo" className="aspect-[3/2]" />
+                <Media src={p.logo} alt={p.name} label={c("logo")} kind="logo" fit="contain" className="aspect-[3/2] bg-white" />
                 <p className="mt-2 text-xs text-muted">{p.name}</p>
               </div>
             ))}

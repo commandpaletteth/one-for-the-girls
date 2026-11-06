@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import PhotoBox from "@/components/PhotoBox";
+import Media from "@/components/Media";
 import { Container, PageHeader, SectionHeading } from "@/components/Section";
-import { isSet, type Article, type Topic } from "@/lib/content";
+import { isSet, type Topic } from "@/lib/content";
+import { getArticles } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -20,7 +21,7 @@ export default async function GirlTalkPage({ params }: Props) {
   const t = await getTranslations("GirlTalk");
   const c = await getTranslations("Common");
   const topics = t.raw("topics") as Topic[];
-  const articles = t.raw("articles") as Article[];
+  const articles = await getArticles();
   const topicName = (id: string) => topics.find((tp) => tp.id === id)?.name;
 
   return (
@@ -48,7 +49,7 @@ export default async function GirlTalkPage({ params }: Props) {
             {articles.map((a) => {
               const card = (
                 <>
-                  <PhotoBox label={c("photos")} className="aspect-[4/3]" />
+                  <Media src={a.image} alt={a.title} label={c("photos")} className="aspect-[4/3]" />
                   <p className="mt-4 text-[11px] font-bold uppercase tracking-wider text-primary">
                     {topicName(a.topic)}
                     {isSet(a.date) && <span className="text-muted"> · {a.date}</span>}

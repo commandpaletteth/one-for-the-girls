@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import EventsBrowser from "@/components/EventsBrowser";
 import { Container, PageHeader } from "@/components/Section";
-import type { Category, EventItem, Recap } from "@/lib/content";
+import type { Category } from "@/lib/content";
+import { getRecaps, getUpcomingEvents } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -18,7 +19,7 @@ export default async function WhatsOnPage({ params }: Props) {
   const t = await getTranslations("WhatsOn");
   const c = await getTranslations("Common");
   const categories = (await getTranslations("Categories")).raw("items") as Category[];
-  const events = (await getTranslations("Events")).raw("upcoming") as EventItem[];
+  const [events, recaps] = await Promise.all([getUpcomingEvents(), getRecaps()]);
 
   return (
     <>
@@ -28,7 +29,7 @@ export default async function WhatsOnPage({ params }: Props) {
           <EventsBrowser
             categories={categories}
             events={events}
-            recaps={t.raw("recaps") as Recap[]}
+            recaps={recaps}
             labels={{
               all: c("all"),
               photos: c("photos"),

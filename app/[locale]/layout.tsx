@@ -14,6 +14,9 @@ import "../globals.css";
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 
+// Content from Supabase is re-checked at most once an hour; saving in /admin refreshes pages immediately.
+export const revalidate = 3600;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }

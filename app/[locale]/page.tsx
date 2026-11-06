@@ -7,11 +7,11 @@ import EventCard from "@/components/EventCard";
 import SignupForm from "@/components/SignupForm";
 import { Container, Eyebrow, SectionHeading } from "@/components/Section";
 import { btnPrimary, btnSecondary } from "@/lib/utils";
-import { isSet, type Category, type EventItem } from "@/lib/content";
+import { isSet, type Category } from "@/lib/content";
+import { getUpcomingEvents, getUpdates } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 type Value = { title: string; desc: string };
-type Update = { tag: string; date: string; title: string; text: string };
 
 const CATEGORY_ICONS: Record<string, typeof Heart> = {
   wellness: Heart,
@@ -35,9 +35,8 @@ export default async function HomePage({ params }: Props) {
   const c = await getTranslations("Common");
   const f = await getTranslations("Form");
   const categories = (await getTranslations("Categories")).raw("items") as Category[];
-  const events = ((await getTranslations("Events")).raw("upcoming") as EventItem[]).slice(0, 3);
+  const [events, updates] = await Promise.all([getUpcomingEvents(3), getUpdates(3)]);
   const values = t.raw("values") as Value[];
-  const updates = t.raw("updates") as Update[];
   const eventLabels = { photos: c("photos"), book: c("book"), bookingSoon: c("booking_soon") };
 
   return (
@@ -164,6 +163,9 @@ export default async function HomePage({ params }: Props) {
               placeholder: t("join_placeholder"),
               button: t("join_button"),
               note: t("join_note"),
+              done: f("signup_done"),
+              invalid: f("signup_invalid"),
+              error: f("error"),
               notConnected: f("signup_not_connected"),
             }}
           />

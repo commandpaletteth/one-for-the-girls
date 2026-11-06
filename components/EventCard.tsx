@@ -1,5 +1,5 @@
 import { ArrowUpRight, Calendar, Clock, MapPin } from "lucide-react";
-import PhotoBox from "./PhotoBox";
+import Media from "./Media";
 import type { EventItem } from "@/lib/content";
 
 export type EventCardLabels = { photos: string; book: string; bookingSoon: string };
@@ -16,13 +16,13 @@ export default function EventCard({
   const hasBooking = !!event.booking_url?.trim();
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border/50 bg-white shadow-sm">
-      <PhotoBox label={labels.photos} className="aspect-[4/3] rounded-none border-0 border-b-2">
+      <Media src={event.image} alt={event.title} label={labels.photos} className="aspect-[4/3] rounded-none border-0 border-b-2">
         {categoryName && (
           <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
             {categoryName}
           </span>
         )}
-      </PhotoBox>
+      </Media>
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-serif text-xl text-foreground">{event.title}</h3>
         <ul className="mt-3 space-y-1.5 text-sm text-muted">

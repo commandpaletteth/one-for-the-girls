@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import FilterTabs from "./FilterTabs";
-import PhotoBox from "./PhotoBox";
+import Media from "./Media";
 import { isSet, type Album, type Category } from "@/lib/content";
 
 type Props = {
@@ -33,7 +33,9 @@ export default function GalleryBrowser({ types, categories, albums, labels }: Pr
           const isVideo = a.type === "videos";
           return (
             <article key={`${a.title}-${i}`} className="group">
-              <PhotoBox
+              <Media
+                src={a.image}
+                alt={a.title}
                 label={isVideo ? labels.video : labels.photos}
                 kind={isVideo ? "video" : "photo"}
                 className={i % 3 === 1 ? "aspect-[4/5]" : "aspect-[4/3]"}
@@ -41,7 +43,7 @@ export default function GalleryBrowser({ types, categories, albums, labels }: Pr
                 <span className="absolute bottom-3 right-3 rounded-full bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-muted shadow-sm">
                   {a.countLabel}
                 </span>
-              </PhotoBox>
+              </Media>
               <p className="mt-4 text-[11px] font-bold uppercase tracking-wider text-primary">
                 {typeName(a.type)} · {catName(a.category)}
                 {isSet(a.date) && <span className="text-muted"> · {a.date}</span>}

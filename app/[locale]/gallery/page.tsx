@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import GalleryBrowser from "@/components/GalleryBrowser";
 import { Container, PageHeader } from "@/components/Section";
-import type { Album, Category } from "@/lib/content";
+import type { Category } from "@/lib/content";
+import { getAlbums } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -18,7 +19,7 @@ export default async function GalleryPage({ params }: Props) {
   const t = await getTranslations("Gallery");
   const c = await getTranslations("Common");
   const categories = (await getTranslations("Categories")).raw("items") as Category[];
-  const albums = (t.raw("albums") as Album[]).map((a) => ({
+  const albums = (await getAlbums()).map((a) => ({
     ...a,
     countLabel: a.type === "videos" ? c("video") : c("photo_count", { count: a.count }),
   }));

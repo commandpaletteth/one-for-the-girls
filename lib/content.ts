@@ -1,4 +1,4 @@
-// Shapes of the lists in content/en.json. Text values are read with t("key"), lists with t.raw("key").
+// Shapes used by the public pages. Lists come from lib/data.ts (Supabase, or content/en.json before it is connected).
 
 export type Category = { id: string; name: string; desc: string };
 
@@ -10,11 +10,20 @@ export type EventItem = {
   location: string;
   summary: string;
   booking_url: string;
+  image?: string;
 };
 
-export type Recap = { title: string; category: string; date: string; summary: string; has_video: boolean };
+export type Recap = {
+  title: string;
+  category: string;
+  date: string;
+  summary: string;
+  has_video: boolean;
+  video_url?: string;
+  image?: string;
+};
 
-export type Album = { title: string; type: string; category: string; date: string; count: number };
+export type Album = { title: string; type: string; category: string; date: string; count: number; image?: string };
 
 export type Topic = { id: string; name: string; desc: string };
 
@@ -26,7 +35,14 @@ export type Article = {
   excerpt: string;
   published: boolean;
   body: string[];
+  image?: string;
 };
+
+export type Partner = { name: string; logo?: string; url?: string };
+export type Testimonial = { quote: string; name: string; role: string };
+export type Stat = { value: string; label: string; note?: string };
+export type Update = { tag: string; date: string; title: string; text: string };
+export type Faq = { q: string; a: string };
 
 export type Social = { icon: "instagram" | "tiktok" | "email" | string; label: string; handle: string; url: string };
 
