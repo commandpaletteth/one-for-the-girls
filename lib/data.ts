@@ -2,6 +2,7 @@ import "server-only";
 import content from "@/content/en.json";
 import { createPublicSupabase } from "@/lib/supabase/public";
 import { hasSupabase, mediaUrl } from "@/lib/supabase/env";
+import { isPastEvent, lastDay, todayInBangkok } from "@/lib/events";
 import type { Album, Article, EventItem, Faq, Partner, Recap, Stat, Testimonial, Update } from "@/lib/content";
 
 /**
@@ -18,18 +19,48 @@ function fail(what: string, error: { message: string }): never {
 const db = () => createPublicSupabase();
 
 // Events -----------------------------------------------------------------------------
+type EventRow = {
+  title: string;
+  category: string;
+  status: string;
+  event_date: string | null;
+  end_date: string | null;
+  date_text: string;
+  time_text: string;
+  location: string;
+  summary: string;
+  booking_url: string;
+  cover_path: string | null;
+  recap: string;
+  video_url: string;
+  sort: number;
+};
+
+/** All published events, split into upcoming / past with the date rule in lib/events.ts. */
+async function loadEvents() {
+  const { data, error } = await db()
+    .from("events")
+    .select(
+      "title, category, status, event_date, end_date, date_text, time_text, location, summary, booking_url, cover_path, recap, video_url, sort",
+    );
+  if (error) fail("events", error);
+  const today = todayInBangkok();
+  const rows = data as EventRow[];
+  const byDate = (a: EventRow, b: EventRow) =>
+    (a.event_date ?? "9999").localeCompare(b.event_date ?? "9999") || a.sort - b.sort;
+  return {
+    upcoming: rows.filter((e) => !isPastEvent(e, today)).sort(byDate),
+    // Most recent first; undated past events go last.
+    past: rows
+      .filter((e) => isPastEvent(e, today))
+      .sort((a, b) => (lastDay(b) ?? "0000").localeCompare(lastDay(a) ?? "0000") || a.sort - b.sort),
+  };
+}
+
 export async function getUpcomingEvents(limit?: number): Promise<EventItem[]> {
   if (!hasSupabase()) return content.Events.upcoming.slice(0, limit);
-  let q = db()
-    .from("events")
-    .select("title, category, date_text, time_text, location, summary, booking_url, cover_path")
-    .eq("status", "upcoming")
-    .order("event_date", { ascending: true, nullsFirst: false })
-    .order("sort");
-  if (limit) q = q.limit(limit);
-  const { data, error } = await q;
-  if (error) fail("events", error);
-  return data.map((e) => ({
+  const { upcoming } = await loadEvents();
+  return upcoming.slice(0, limit).map((e) => ({
     title: e.title,
     category: e.category,
     date: e.date_text,
@@ -43,18 +74,13 @@ export async function getUpcomingEvents(limit?: number): Promise<EventItem[]> {
 
 export async function getRecaps(): Promise<Recap[]> {
   if (!hasSupabase()) return content.WhatsOn.recaps;
-  const { data, error } = await db()
-    .from("events")
-    .select("title, category, date_text, recap, video_url, cover_path")
-    .eq("status", "past")
-    .order("event_date", { ascending: false, nullsFirst: false })
-    .order("sort");
-  if (error) fail("recaps", error);
-  return data.map((e) => ({
+  const { past } = await loadEvents();
+  return past.map((e) => ({
     title: e.title,
     category: e.category,
     date: e.date_text,
-    summary: e.recap,
+    // Moved to past automatically but no recap written yet: show the event description instead.
+    summary: e.recap || e.summary,
     has_video: !!e.video_url,
     video_url: e.video_url || undefined,
     image: mediaUrl(e.cover_path),
@@ -147,7 +173,7 @@ export async function getStats(): Promise<{ headline: Stat[]; audience: Stat[]; 
     return { headline: content.Circle.stats, audience: content.Circle.audience, note: content.Circle.stats_note };
   }
   const [stats, note] = await Promise.all([
-    db().from("stats").select('"group", value, label, note').order("sort"),
+    db().from("stats").select("group, value, label, note").order("sort"),
     db().from("settings").select("value").eq("key", "stats_note").maybeSingle(),
   ]);
   if (stats.error) fail("stats", stats.error);

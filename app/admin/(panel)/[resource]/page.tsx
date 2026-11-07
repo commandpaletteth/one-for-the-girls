@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, EyeOff, Plus } from "lucide-react";
+import { CalendarX, ChevronRight, EyeOff, History, Plus } from "lucide-react";
 import { requireAdmin } from "@/lib/auth";
 import { getResource, optionLabel, RESOURCES } from "@/lib/admin-resources";
-import { listRows } from "@/lib/admin-data";
+import { listRows, type Row } from "@/lib/admin-data";
+import { isPastEvent, lastDay, todayInBangkok } from "@/lib/events";
 import { mediaUrl } from "@/lib/supabase/env";
 import { btn, card } from "@/lib/admin-ui";
 import Notice from "@/components/admin/Notice";
@@ -27,7 +28,10 @@ export default async function ResourceList({ params, searchParams }: Props) {
   if (!resource) notFound();
   const { saved, deleted } = await searchParams;
   const session = await requireAdmin();
-  const rows = await listRows(session, resource);
+  let rows = await listRows(session, resource);
+  const isEvents = resource.table === "events";
+  const today = todayInBangkok();
+  if (isEvents) rows = sortEvents(rows, today);
   const hasPublished = resource.fields.some((f) => f.name === "published");
   const imageField = resource.fields.find((f) => f.type === "image")?.name;
 
@@ -74,8 +78,11 @@ export default async function ResourceList({ params, searchParams }: Props) {
           {rows.map((row) => {
             const img = imageField ? mediaUrl(row[imageField] as string | null) : undefined;
             const meta = resource.metaFields
+              .filter((m) => !(isEvents && m === "status")) // events show a badge instead
               .map((m) => optionLabel(resource, m, row[m]))
               .filter((m) => m && m.toUpperCase() !== "TBC");
+            const ev = isEvents ? (row as Row & { status: string; event_date: string | null; end_date: string | null }) : null;
+            const past = ev ? isPastEvent(ev, today) : false;
             return (
               <li key={row.id}>
                 <Link
@@ -92,6 +99,22 @@ export default async function ResourceList({ params, searchParams }: Props) {
                     <span className="block truncate font-medium">{String(row[resource.titleField] ?? "")}</span>
                     {meta.length > 0 && <span className="block truncate text-xs text-muted">{meta.join(" · ")}</span>}
                   </span>
+                  {ev && past && (
+                    <span
+                      className="inline-flex shrink-0 items-center gap-1 rounded-full bg-background px-2.5 py-1 text-xs text-muted"
+                      title={ev.status === "past" ? "Set to Past by hand" : "Moved to Past automatically (date has passed)"}
+                    >
+                      <History size={12} /> {ev.status === "past" ? "Past" : "Past (auto)"}
+                    </span>
+                  )}
+                  {ev && !past && !lastDay(ev) && (
+                    <span
+                      className="inline-flex shrink-0 items-center gap-1 rounded-full bg-blush px-2.5 py-1 text-xs text-primary"
+                      title="Add an event date so it moves to Past automatically"
+                    >
+                      <CalendarX size={12} /> No date
+                    </span>
+                  )}
                   {hasPublished && !row.published && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-blush px-2.5 py-1 text-xs text-primary">
                       <EyeOff size={12} /> Hidden
@@ -106,4 +129,17 @@ export default async function ResourceList({ params, searchParams }: Props) {
       )}
     </div>
   );
+}
+
+/** Upcoming first (soonest first, undated last), then past events (most recent first). */
+function sortEvents(rows: Row[], today: string) {
+  type E = Row & { status: string; event_date: string | null; end_date: string | null; sort: number };
+  const list = rows as E[];
+  const upcoming = list
+    .filter((e) => !isPastEvent(e, today))
+    .sort((a, b) => (a.event_date ?? "9999").localeCompare(b.event_date ?? "9999") || a.sort - b.sort);
+  const past = list
+    .filter((e) => isPastEvent(e, today))
+    .sort((a, b) => (lastDay(b) ?? "0000").localeCompare(lastDay(a) ?? "0000") || a.sort - b.sort);
+  return [...upcoming, ...past];
 }

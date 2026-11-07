@@ -12,13 +12,16 @@ begin
   return new;
 end $$;
 
--- Events: one row goes from "upcoming" to "past" (then shows as a recap on What's On) ----
+-- Events -------------------------------------------------------------------------------
+-- An event shows as a recap ("past") when status = 'past' OR its last day (end_date, else event_date)
+-- is before today in Bangkok. That rule lives in lib/events.ts (used by the site and the admin).
 create table public.events (
   id           uuid primary key default gen_random_uuid(),
   title        text not null,
   category     text not null check (category in ('wellness','creative','sports','social')),
   status       text not null default 'upcoming' check (status in ('upcoming','past')),
-  event_date   date,                         -- used for sorting; optional
+  event_date   date,                         -- the day of the event (sorting + moves to past the day after)
+  end_date     date,                         -- optional, last day of a multi-day event
   date_text    text not null default 'Date TBC',
   time_text    text not null default 'Time TBC',
   location     text not null default 'Bangkok',
@@ -30,7 +33,8 @@ create table public.events (
   published    boolean not null default true,
   sort         int not null default 0,
   created_at   timestamptz not null default now(),
-  updated_at   timestamptz not null default now()
+  updated_at   timestamptz not null default now(),
+  constraint events_end_after_start check (end_date is null or (event_date is not null and end_date >= event_date))
 );
 
 -- Gallery ------------------------------------------------------------------

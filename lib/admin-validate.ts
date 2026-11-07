@@ -61,6 +61,12 @@ export function parseForm(resource: Resource, form: FormData): { values: Record<
     if (f.required && !str) errors[f.name] = "Required.";
   }
 
+  // Events: end date needs a date and can't be before it.
+  if (resource.table === "events" && values.end_date) {
+    if (!values.event_date) errors.end_date = "Add the event date first.";
+    else if ((values.end_date as string) < (values.event_date as string)) errors.end_date = "Can't be before the event date.";
+  }
+
   // Articles: build the web address from the title when left empty.
   if (resource.table === "articles") {
     const slug = (values.slug as string) || slugify((values.title as string) || "");

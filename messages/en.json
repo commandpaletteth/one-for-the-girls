@@ -27,7 +27,9 @@
     "coming_soon": "Coming soon",
     "read_more": "Read more",
     "back_to_girl_talk": "Back to Girl Talk",
-    "photo_count": "{count, plural, =0 {No photos yet} =1 {1 item} other {# photos}}"
+    "photo_count": "{count, plural, =0 {No photos yet} =1 {1 item} other {# photos}}",
+    "watch_video": "Watch the video",
+    "no_events": "New events are coming soon. Join the mailing club or follow us on Instagram to hear first."
   },
   "Form": {
     "name": "Your name",

@@ -40,6 +40,7 @@ export default async function WhatsOnPage({ params }: Props) {
               recapsTitle: t("recaps_title"),
               recapsIntro: t("recaps_intro"),
               empty: t("empty"),
+              watch: c("watch_video"),
             }}
           />
         </Container>

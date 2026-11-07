@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Play } from "lucide-react";
 import FilterTabs from "./FilterTabs";
 import EventCard, { type EventCardLabels } from "./EventCard";
 import PhotoBox from "./PhotoBox";
@@ -19,6 +20,7 @@ type Props = {
     recapsTitle: string;
     recapsIntro: string;
     empty: string;
+    watch: string;
   };
 };
 
@@ -53,15 +55,20 @@ export default function EventsBrowser({ categories, events, recaps, labels }: Pr
           <div className="grid gap-8 md:grid-cols-2">
             {shownRecaps.map((r, i) => (
               <article key={`${r.title}-${i}`} className="grid gap-4 sm:grid-cols-[1fr_1fr]">
-                <div className="grid grid-cols-2 gap-2">
-                  <Media src={r.image} alt={r.title} label={labels.photos} className="col-span-2 aspect-[4/3]" />
-                  <PhotoBox label={labels.photos} className="aspect-square" />
-                  <PhotoBox
-                    label={r.has_video ? labels.video : labels.photos}
-                    kind={r.has_video ? "video" : "photo"}
-                    className="aspect-square"
-                  />
-                </div>
+                {r.image ? (
+                  <Media src={r.image} alt={r.title} label={labels.photos} className="aspect-[4/3]" />
+                ) : (
+                  // No photo yet: placeholder layout (only while the site has no real photos)
+                  <div className="grid grid-cols-2 gap-2">
+                    <PhotoBox label={labels.photos} className="col-span-2 aspect-[4/3]" />
+                    <PhotoBox label={labels.photos} className="aspect-square" />
+                    <PhotoBox
+                      label={r.has_video ? labels.video : labels.photos}
+                      kind={r.has_video ? "video" : "photo"}
+                      className="aspect-square"
+                    />
+                  </div>
+                )}
                 <div className="flex flex-col justify-center">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-primary">
                     {nameOf(r.category)}
@@ -69,6 +76,16 @@ export default function EventsBrowser({ categories, events, recaps, labels }: Pr
                   </p>
                   <h3 className="mt-2 font-serif text-2xl text-foreground">{r.title}</h3>
                   <p className="mt-3 text-sm font-light leading-relaxed text-muted">{r.summary}</p>
+                  {r.video_url && (
+                    <a
+                      href={r.video_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark"
+                    >
+                      <Play size={14} /> {labels.watch}
+                    </a>
+                  )}
                 </div>
               </article>
             ))}

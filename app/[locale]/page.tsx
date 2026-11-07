@@ -139,6 +139,9 @@ export default async function HomePage({ params }: Props) {
               {t("events_link")} <ArrowRight size={16} />
             </Link>
           </div>
+          {events.length === 0 && (
+            <p className="rounded-3xl border border-dashed border-border p-8 text-center text-muted">{c("no_events")}</p>
+          )}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {events.map((e, i) => (
               <EventCard
