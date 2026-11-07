@@ -20,6 +20,7 @@ import {
   Handshake,
   KeyRound,
   Quote,
+  Users,
   X,
 } from "lucide-react";
 import { ADMIN_NAV } from "@/lib/admin-nav";
@@ -39,6 +40,7 @@ const ICONS = {
   faqs: HelpCircle,
   messages: MessageSquareText,
   subscribers: Mail,
+  team: Users,
 } as const;
 
 export default function AdminNav({ email }: { email: string }) {

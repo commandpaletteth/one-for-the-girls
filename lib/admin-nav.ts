@@ -12,4 +12,5 @@ export const ADMIN_NAV = [
   { href: "/admin/faqs", label: "FAQs", icon: "faqs" },
   { href: "/admin/messages", label: "Messages", icon: "messages" },
   { href: "/admin/subscribers", label: "Mailing Club", icon: "subscribers" },
+  { href: "/admin/team", label: "Team", icon: "team" },
 ] as const;
