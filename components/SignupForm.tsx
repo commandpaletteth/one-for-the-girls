@@ -66,10 +66,10 @@ export default function SignupForm({
           {pending && <Loader2 size={16} className="animate-spin" />} {labels.button}
         </button>
       </form>
-      <p role="status" className="mt-3 text-sm text-white/80">
+      <p role="status" className="mt-3 text-sm text-white">
         {message}
       </p>
-      <p className="mt-1 text-xs text-white/70">
+      <p className="mt-1 text-xs text-white">
         {labels.consent}{" "}
         <Link href="/privacy" className="underline hover:text-white">
           {labels.privacy}

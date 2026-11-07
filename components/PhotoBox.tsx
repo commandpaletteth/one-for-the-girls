@@ -24,7 +24,7 @@ export default function PhotoBox({
       )}
     >
       {kind !== "logo" && <Icon className="h-6 w-6" strokeWidth={1.5} />}
-      <span className="text-[11px] font-semibold uppercase tracking-[0.2em]">{label}</span>
+      <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">{label}</span>
       {children}
     </div>
   );

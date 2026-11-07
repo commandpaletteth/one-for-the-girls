@@ -38,7 +38,7 @@ export default async function HomePage({ params }: Props) {
   const categories = (await getTranslations("Categories")).raw("items") as Category[];
   const [events, updates, img] = await Promise.all([getUpcomingEvents(3), getUpdates(3), getSiteImages()]);
   const values = t.raw("values") as Value[];
-  const eventLabels = { photos: c("photos"), book: c("book"), bookingSoon: c("booking_soon") };
+  const eventLabels = { photos: c("photos"), book: c("book"), bookingSoon: c("booking_soon"), soldOut: c("sold_out") };
 
   return (
     <>
@@ -93,7 +93,7 @@ export default async function HomePage({ params }: Props) {
             <div className="grid gap-4 sm:grid-cols-2">
               {values.map((v, i) => (
                 <div key={i} className="rounded-3xl border border-border/50 bg-background p-6">
-                  <p className="font-serif text-4xl text-primary/30">0{i + 1}</p>
+                  <p aria-hidden="true" className="font-serif text-4xl text-primary/30">0{i + 1}</p>
                   <h3 className="mt-2 font-serif text-xl text-foreground">{v.title}</h3>
                   <p className="mt-2 text-sm font-light leading-relaxed text-muted">{v.desc}</p>
                 </div>
@@ -166,9 +166,9 @@ export default async function HomePage({ params }: Props) {
       {/* Join our community */}
       <section id="join" className="scroll-mt-24 px-4 py-24">
         <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-primary px-6 py-16 text-center text-white shadow-xl shadow-primary/20 md:px-16">
-          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-white/80">{t("join_eyebrow")}</p>
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-white">{t("join_eyebrow")}</p>
           <h2 className="font-serif text-3xl md:text-5xl">{t("join_club_name")}</h2>
-          <p className="mx-auto mb-8 mt-4 max-w-xl font-light leading-relaxed text-white/90">{t("join_text")}</p>
+          <p className="mx-auto mb-8 mt-4 max-w-xl font-light leading-relaxed text-white">{t("join_text")}</p>
           <SignupForm
             labels={{
               placeholder: t("join_placeholder"),

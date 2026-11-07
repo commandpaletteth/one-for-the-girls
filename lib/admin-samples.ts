@@ -4,6 +4,15 @@ import content from "@/content/en.json";
 // Preview mode only (npm run dev, Supabase not connected): rows shaped like the database, built from content/en.json.
 export type Row = Record<string, unknown> & { id: string };
 
+// Made-up results so the Overview charts can be seen in Preview mode (dates relative to today).
+const daysAgo = (n: number) => new Date(Date.now() - n * 86400000).toISOString().slice(0, 10);
+const SAMPLE_RESULTS = [
+  { date: daysAgo(80), sold: 24, came: 22, cap: 25, gross: 26400 },
+  { date: daysAgo(55), sold: 16, came: 16, cap: 16, gross: 19200 },
+  { date: daysAgo(30), sold: 18, came: 15, cap: 20, gross: 21600 },
+  { date: daysAgo(10), sold: 12, came: 11, cap: 15, gross: 10800 },
+];
+
 const withIds = (prefix: string, rows: Record<string, unknown>[]): Row[] =>
   rows.map((r, i) => ({ id: `${prefix}-${i}`, ...r }));
 
@@ -32,8 +41,13 @@ export function sampleRows(table: string): Row[] {
           title: r.title,
           category: r.category,
           status: "past",
-          event_date: null,
+          event_date: SAMPLE_RESULTS[i]?.date ?? null,
           end_date: null,
+          tickets_sold: SAMPLE_RESULTS[i]?.sold ?? null,
+          attendees: SAMPLE_RESULTS[i]?.came ?? null,
+          capacity: SAMPLE_RESULTS[i]?.cap ?? null,
+          revenue_gross: SAMPLE_RESULTS[i]?.gross ?? null,
+          revenue_net: SAMPLE_RESULTS[i] ? Math.round(SAMPLE_RESULTS[i].gross * 0.93) : null,
           date_text: "",
           time_text: "",
           location: "Bangkok",

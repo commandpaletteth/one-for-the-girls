@@ -36,6 +36,7 @@ export default async function WhatsOnPage({ params }: Props) {
               video: c("video"),
               book: c("book"),
               bookingSoon: c("booking_soon"),
+              soldOut: c("sold_out"),
               upcomingTitle: t("upcoming_title"),
               recapsTitle: t("recaps_title"),
               recapsIntro: t("recaps_intro"),

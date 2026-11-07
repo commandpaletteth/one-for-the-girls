@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { NAV } from "@/lib/content";
 import { isIndexable, siteUrl } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 // Self-hosted fonts (no request to Google at build or page load).
 import "@fontsource-variable/inter";
 import "@fontsource-variable/playfair-display";
@@ -63,6 +64,8 @@ export default async function LocaleLayout({ children, params }: Props) {
           <main>{children}</main>
           <Footer />
         </NextIntlClientProvider>
+        {/* Cookieless visit counts (Vercel Web Analytics). Public pages only; turn it on in Vercel → Analytics. */}
+        <Analytics />
       </body>
     </html>
   );

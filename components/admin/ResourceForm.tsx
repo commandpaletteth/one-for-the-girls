@@ -64,7 +64,7 @@ export default function ResourceForm({ fields, values, action, cancelHref, previ
           case "checkbox":
             control = (
               <label className="inline-flex cursor-pointer items-center gap-3 text-sm">
-                <input type="checkbox" name={f.name} defaultChecked={Boolean(v)} className="h-5 w-5 accent-[#B85C5C]" />
+                <input type="checkbox" name={f.name} defaultChecked={Boolean(v)} className="h-5 w-5 accent-primary" />
                 {f.label}
               </label>
             );
@@ -87,10 +87,12 @@ export default function ResourceForm({ fields, values, action, cancelHref, previ
                 name={f.name}
                 required={f.required}
                 type={f.type === "url" ? "url" : f.type === "date" ? "date" : f.type === "number" ? "number" : "text"}
+                inputMode={f.type === "money" ? "decimal" : undefined}
+                min={f.nullable && f.type === "number" ? 0 : undefined}
                 defaultValue={str(v)}
                 placeholder={f.type === "url" ? "https://" : undefined}
                 onChange={onWatch}
-                className={cn(input, f.type === "number" && "max-w-32")}
+                className={cn(input, (f.type === "number" || f.type === "money") && "max-w-48")}
               />
             );
         }
@@ -98,6 +100,11 @@ export default function ResourceForm({ fields, values, action, cancelHref, previ
         return (
           // Hidden fields stay in the form so their values are kept.
           <div key={f.name} className={hidden ? "hidden" : undefined}>
+            {f.section && (
+              <h3 className="mb-4 border-t border-border/50 pt-6 text-sm font-bold uppercase tracking-wider text-primary">
+                {f.section}
+              </h3>
+            )}
             {f.type !== "checkbox" && (
               <label htmlFor={id} className={label}>
                 {f.label}

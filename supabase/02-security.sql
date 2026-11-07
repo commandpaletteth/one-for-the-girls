@@ -13,8 +13,11 @@
 grant usage on schema public to anon, authenticated, service_role;
 revoke all on all tables in schema public from anon;
 grant select, insert, update, delete on all tables in schema public to authenticated, service_role;
-grant select on public.events, public.albums, public.album_items, public.articles, public.partners,
+grant select on public.albums, public.album_items, public.articles, public.partners,
   public.testimonials, public.stats, public.updates, public.faqs, public.settings to anon;
+-- Events: visitors may read every column EXCEPT the private results (tickets, attendees, capacity, revenue).
+grant select (id, title, category, status, event_date, end_date, date_text, time_text, location, summary,
+  booking_url, sold_out, cover_path, recap, video_url, published, sort, created_at, updated_at) on public.events to anon;
 
 -- Admins: full access on every table ----------------------------------------------------
 do $$

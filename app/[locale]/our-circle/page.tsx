@@ -89,7 +89,7 @@ export default async function CirclePage({ params }: Props) {
           <div className="grid gap-6 sm:grid-cols-2">
             {why.map((w, i) => (
               <div key={i} className="flex gap-5 rounded-3xl bg-background p-7">
-                <p className="font-serif text-3xl text-primary/30">0{i + 1}</p>
+                <p aria-hidden="true" className="font-serif text-3xl text-primary/30">0{i + 1}</p>
                 <div>
                   <h3 className="font-serif text-xl text-foreground">{w.title}</h3>
                   <p className="mt-2 text-sm font-light leading-relaxed text-muted">{w.desc}</p>

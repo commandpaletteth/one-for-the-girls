@@ -32,8 +32,25 @@ export function parseForm(resource: Resource, form: FormData): { values: Record<
         values[f.name] = raw === "on" || raw === "true";
         continue;
       case "number": {
+        if (str === "" && f.nullable) {
+          values[f.name] = null;
+          continue;
+        }
         const n = str === "" ? 0 : Number(str);
         if (!Number.isInteger(n) || Math.abs(n) > 100000) errors[f.name] = "Whole number only.";
+        else if (f.nullable && n < 0) errors[f.name] = "Can't be negative.";
+        values[f.name] = n;
+        continue;
+      }
+      case "money": {
+        const clean = str.replace(/[,\s฿]/g, "");
+        if (clean === "") {
+          values[f.name] = null;
+          continue;
+        }
+        const n = Number(clean);
+        if (!Number.isFinite(n) || n < 0 || n > 100_000_000 || !/^\d+(\.\d{1,2})?$/.test(clean))
+          errors[f.name] = "Amount like 15000 or 15000.50";
         values[f.name] = n;
         continue;
       }

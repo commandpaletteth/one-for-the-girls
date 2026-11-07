@@ -14,7 +14,7 @@ const config: Config = {
         foreground: "#4A4A4A", // main text
         blush: "#F4E9E6", // soft section background
         primary: {
-          DEFAULT: "#B85C5C", // rose gold
+          DEFAULT: "#B25656", // rose gold (a touch deeper than #B85C5C so small text passes WCAG AA contrast)
           dark: "#9E4F4F",
           foreground: "#FFFFFF",
         },
@@ -24,6 +24,13 @@ const config: Config = {
           foreground: "#FFFFFF",
         },
         muted: "#6B5B5B", // secondary text
+        // One colour per event category (admin charts)
+        cat: {
+          wellness: "#7C9A6B",
+          creative: "#D4A373",
+          sports: "#7A9CB0",
+          social: "#B85C5C",
+        },
         border: "#E8C4C4", // light pink border
       },
       animation: {

@@ -608,8 +608,7 @@
         "paragraphs": [
           "Say Hello form: your name, email address, the type of enquiry and your message.",
           "Mailing club: your email address and the date you signed up.",
-          "Event tickets: tickets are sold through Ticketmelon, which handles your payment and booking under its own privacy policy. Ticketmelon shares the buyer details we need to run the event with us (such as name, email and phone number).",
-          "We do not use advertising cookies or tracking pixels on this website."
+          "Event tickets: tickets are sold through Ticketmelon, which handles your payment and booking under its own privacy policy. Ticketmelon shares the buyer details we need to run the event with us (such as name, email and phone number)."
         ]
       },
       {
@@ -619,6 +618,15 @@
           "To send mailing club emails about our events and community news. Every email lets you unsubscribe.",
           "To organise events you have booked and to understand how our community grows (for example, how many people attend).",
           "We never sell your personal information."
+        ]
+      },
+      {
+        "heading": "Cookies and analytics",
+        "paragraphs": [
+          "Our public website does not set any cookies and does not use advertising or social-media tracking pixels, so there is nothing to accept when you visit.",
+          "We use Vercel Web Analytics to count visits (for example, which pages are popular and which country visitors come from). It works without cookies and does not identify you personally.",
+          "Our admin area, used only by our team, uses a strictly necessary cookie to keep team members signed in.",
+          "If we ever add cookies or tracking that need your consent, we will ask you first and update this policy."
         ]
       },
       {

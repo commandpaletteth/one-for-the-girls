@@ -49,7 +49,7 @@ export default function GalleryBrowser({ types, categories, albums, labels }: Pr
                 {typeName(a.type)} · {catName(a.category)}
                 {isSet(a.date) && <span className="text-muted"> · {a.date}</span>}
               </p>
-              <h3 className="mt-1 font-serif text-xl text-foreground transition-colors group-hover:text-primary">{a.title}</h3>
+              <h2 className="mt-1 font-serif text-xl text-foreground transition-colors group-hover:text-primary">{a.title}</h2>
             </Link>
           );
         })}

@@ -1,8 +1,9 @@
 import { ArrowUpRight, Calendar, Clock, MapPin } from "lucide-react";
 import Media from "./Media";
 import type { EventItem } from "@/lib/content";
+import { withUtm } from "@/lib/booking";
 
-export type EventCardLabels = { photos: string; book: string; bookingSoon: string };
+export type EventCardLabels = { photos: string; book: string; bookingSoon: string; soldOut: string };
 
 export default function EventCard({
   event,
@@ -13,10 +14,15 @@ export default function EventCard({
   categoryName?: string;
   labels: EventCardLabels;
 }) {
-  const hasBooking = !!event.booking_url?.trim();
+  const hasBooking = !!event.booking_url?.trim() && !event.sold_out;
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border/50 bg-white shadow-sm">
       <Media src={event.image} alt={event.title} label={labels.photos} className="aspect-[4/3] rounded-none border-0 border-b-2">
+        {event.sold_out && (
+          <span className="absolute right-4 top-4 rounded-full bg-foreground px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
+            {labels.soldOut}
+          </span>
+        )}
         {categoryName && (
           <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary shadow-sm">
             {categoryName}
@@ -39,7 +45,7 @@ export default function EventCard({
         <p className="mt-4 flex-1 text-sm font-light leading-relaxed text-muted">{event.summary}</p>
         {hasBooking ? (
           <a
-            href={event.booking_url}
+            href={withUtm(event.booking_url)}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
@@ -48,7 +54,7 @@ export default function EventCard({
           </a>
         ) : (
           <span className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-border bg-background px-6 text-sm font-medium text-muted">
-            {labels.bookingSoon}
+            {event.sold_out ? labels.soldOut : labels.bookingSoon}
           </span>
         )}
       </div>

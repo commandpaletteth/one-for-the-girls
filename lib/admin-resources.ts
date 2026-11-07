@@ -2,7 +2,7 @@
 // so a field is added in ONE place. Plain data only (it is also sent to the browser for the form).
 import content from "@/content/en.json";
 
-export type FieldType = "text" | "textarea" | "longtext" | "select" | "checkbox" | "url" | "date" | "number" | "image";
+export type FieldType = "text" | "textarea" | "longtext" | "select" | "checkbox" | "url" | "date" | "number" | "money" | "image";
 
 export type Field = {
   name: string;
@@ -17,6 +17,10 @@ export type Field = {
   maxWidth?: number;
   /** only show when another field has this value (e.g. recap fields when status = past) */
   showWhen?: { field: string; value: string };
+  /** number/money: empty means "not filled in" (null) instead of 0 */
+  nullable?: boolean;
+  /** heading shown above this field, to group the form */
+  section?: string;
 };
 
 export type Resource = {
@@ -103,6 +107,13 @@ export const RESOURCES: Resource[] = [
         type: "url",
         help: "Your Ticketmelon link. Leave empty to show “Booking opens soon”.",
       },
+      {
+        name: "sold_out",
+        label: "Sold out",
+        type: "checkbox",
+        default: false,
+        help: "Shows “Sold out” instead of the booking button.",
+      },
       { name: "cover_path", label: "Cover photo", type: "image", folder: "events", maxWidth: 1600 },
       {
         name: "recap",
@@ -113,6 +124,30 @@ export const RESOURCES: Resource[] = [
       { name: "video_url", label: "Recap video link (Instagram reel / YouTube)", type: "url" },
       published("Untick to hide without deleting."),
       sort,
+      {
+        name: "tickets_sold",
+        label: "Tickets sold",
+        type: "number",
+        nullable: true,
+        section: "Results (private: only you see these, used for the charts on Overview)",
+        help: "From Ticketmelon › Event Overview.",
+      },
+      { name: "attendees", label: "People who came", type: "number", nullable: true },
+      { name: "capacity", label: "Capacity (max spots)", type: "number", nullable: true },
+      {
+        name: "revenue_gross",
+        label: "Ticket sales (THB, before fees)",
+        type: "money",
+        nullable: true,
+        help: "Ticketmelon “Gross ticket sales”.",
+      },
+      {
+        name: "revenue_net",
+        label: "Payout received (THB, after fees)",
+        type: "money",
+        nullable: true,
+        help: "Ticketmelon “Net payout”.",
+      },
     ],
   },
   {
@@ -169,7 +204,12 @@ export const RESOURCES: Resource[] = [
       { name: "published_on", label: "Date (for sorting)", type: "date" },
       { name: "date_text", label: "Date as shown", type: "text", help: "e.g. 6 Nov 2026" },
       { name: "excerpt", label: "Short summary", type: "textarea" },
-      { name: "body", label: "Article", type: "longtext", help: "Leave an empty line between paragraphs." },
+      {
+        name: "body",
+        label: "Article",
+        type: "longtext",
+        help: "Empty line = new paragraph · **bold** · *italic* · [link text](https://...) · ## Heading · - list item",
+      },
       { name: "cover_path", label: "Cover photo", type: "image", folder: "articles", maxWidth: 1600 },
       published("Publish the article (otherwise it shows as “Coming soon”).", false),
     ],

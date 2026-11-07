@@ -37,7 +37,8 @@
     "next": "Next photo",
     "photo_of": "Open photo {n} of {total}",
     "photos_soon": "Photos from this album are coming soon.",
-    "view_album": "View album"
+    "view_album": "View album",
+    "sold_out": "Sold out"
   },
   "Form": {
     "name": "Your name",

@@ -6,7 +6,7 @@ import { ImagePlus, Loader2, Play, Star, Trash2 } from "lucide-react";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
 import { MEDIA_BUCKET, mediaUrl } from "@/lib/supabase/env";
 import { newFileName, toWebp } from "@/lib/image";
-import { addAlbumItems, deleteAlbumItem, setAlbumCover, type NewItem } from "@/app/admin/(panel)/actions";
+import { addAlbumItems, deleteAlbumItem, setAlbumCover, setAlbumItemCaption, type NewItem } from "@/app/admin/(panel)/actions";
 import { btn, btnGhost, card, input } from "@/lib/admin-ui";
 import ConfirmButton from "./ConfirmButton";
 
@@ -143,6 +143,22 @@ export default function AlbumPhotos({
                     </span>
                   )}
                 </div>
+                <input
+                  defaultValue={it.caption}
+                  maxLength={200}
+                  placeholder={it.kind === "video" ? "Video title (optional)" : "Caption (optional)"}
+                  aria-label="Caption"
+                  className="w-full border-0 border-b border-border/50 bg-white px-3 py-2 text-xs outline-none focus:border-primary"
+                  onBlur={(e) => {
+                    const v = e.currentTarget.value;
+                    if (v.trim() === (it.caption ?? "").trim()) return;
+                    start(async () => {
+                      const r = await setAlbumItemCaption(albumId, it.id, v);
+                      if (r.error) setError(r.error);
+                    });
+                  }}
+                  onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
+                />
                 <div className="flex items-center justify-between gap-1 p-1">
                   {it.kind === "photo" && it.path && !isCover ? (
                     <button

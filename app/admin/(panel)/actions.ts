@@ -125,6 +125,20 @@ export async function deleteAlbumItem(albumId: string, itemId: string) {
   revalidatePath(`/admin/gallery/${albumId}`);
 }
 
+export async function setAlbumItemCaption(albumId: string, itemId: string, caption: string): Promise<{ error?: string }> {
+  const session = await requireAdmin();
+  if (session.preview) return { error: PREVIEW_MSG };
+  if (!isUuid(albumId) || !isUuid(itemId)) return { error: "Unknown photo." };
+  const { error } = await session.supabase
+    .from("album_items")
+    .update({ caption: caption.trim().slice(0, 200) })
+    .eq("id", itemId)
+    .eq("album_id", albumId);
+  if (error) return { error: "Could not save the caption." };
+  refreshSite("gallery");
+  return {};
+}
+
 export async function setAlbumCover(albumId: string, path: string) {
   if (!isUuid(albumId) || !/^albums\/[A-Za-z0-9._-]+$/.test(path)) return;
   const { supabase } = await requireWritableAdmin();

@@ -27,11 +27,18 @@ create table public.events (
   location     text not null default 'Bangkok',
   summary      text not null default '',
   booking_url  text not null default '',     -- empty = "Booking opens soon"
+  sold_out     boolean not null default false,
   cover_path   text,                         -- storage path in oftg-media
   recap        text not null default '',     -- shown when status = past
   video_url    text not null default '',     -- Instagram reel / YouTube link for the recap
   published    boolean not null default true,
   sort         int not null default 0,
+  -- Results after the event: PRIVATE (admins only, see column grants in 02-security.sql). Feed the Overview charts.
+  tickets_sold  int check (tickets_sold >= 0),
+  attendees     int check (attendees >= 0),
+  capacity      int check (capacity >= 0),
+  revenue_gross numeric(12,2) check (revenue_gross >= 0),  -- THB, before Ticketmelon fees
+  revenue_net   numeric(12,2) check (revenue_net >= 0),    -- THB, payout received
   created_at   timestamptz not null default now(),
   updated_at   timestamptz not null default now(),
   constraint events_end_after_start check (end_date is null or (event_date is not null and end_date >= event_date))

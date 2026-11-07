@@ -31,6 +31,7 @@ type EventRow = {
   location: string;
   summary: string;
   booking_url: string;
+  sold_out: boolean;
   cover_path: string | null;
   recap: string;
   video_url: string;
@@ -42,7 +43,8 @@ async function loadEvents() {
   const { data, error } = await db()
     .from("events")
     .select(
-      "title, category, status, event_date, end_date, date_text, time_text, location, summary, booking_url, cover_path, recap, video_url, sort",
+      // Only public columns: results (attendees, revenue...) are not readable by visitors anyway.
+      "title, category, status, event_date, end_date, date_text, time_text, location, summary, booking_url, sold_out, cover_path, recap, video_url, sort",
     );
   if (error) fail("events", error);
   const today = todayInBangkok();
@@ -69,6 +71,7 @@ export async function getUpcomingEvents(limit?: number): Promise<EventItem[]> {
     location: e.location,
     summary: e.summary,
     booking_url: e.booking_url,
+    sold_out: e.sold_out,
     image: mediaUrl(e.cover_path),
   }));
 }
@@ -171,10 +174,7 @@ const toArticle = (a: ArticleRow): Article => ({
   date: a.date_text,
   excerpt: a.excerpt,
   published: a.published,
-  body: a.body
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean),
+  body: a.body,
   image: mediaUrl(a.cover_path),
 });
 
@@ -182,7 +182,7 @@ const ARTICLE_COLS = "slug, title, topic, date_text, excerpt, body, published, c
 
 /** Published articles only (visitors cannot see drafts). */
 export async function getArticles(): Promise<Article[]> {
-  if (!hasSupabase()) return content.GirlTalk.articles;
+  if (!hasSupabase()) return content.GirlTalk.articles.map((a) => ({ ...a, body: a.body.join("\n\n") }));
   const { data, error } = await db()
     .from("articles")
     .select(ARTICLE_COLS)
@@ -193,7 +193,10 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function getArticle(slug: string): Promise<Article | undefined> {
-  if (!hasSupabase()) return content.GirlTalk.articles.find((a) => a.slug === slug && a.published);
+  if (!hasSupabase()) {
+    const a = content.GirlTalk.articles.find((x) => x.slug === slug && x.published);
+    return a ? { ...a, body: a.body.join("\n\n") } : undefined;
+  }
   const { data, error } = await db().from("articles").select(ARTICLE_COLS).eq("slug", slug).maybeSingle();
   if (error) fail("article", error);
   return data ? toArticle(data as ArticleRow) : undefined;

@@ -10,6 +10,7 @@ export type EventItem = {
   location: string;
   summary: string;
   booking_url: string;
+  sold_out?: boolean;
   image?: string;
 };
 
@@ -44,7 +45,7 @@ export type Article = {
   date: string;
   excerpt: string;
   published: boolean;
-  body: string[];
+  body: string; // formatted text, see lib/rich-text.ts
   image?: string;
 };
 

@@ -49,7 +49,7 @@ export default async function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-2 border-t border-border/40 pt-6 text-xs text-muted/70 md:flex-row md:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-border/40 pt-6 text-xs text-muted md:flex-row md:justify-between">
           <p>
             {t("rights", { year: new Date().getFullYear() })}
             <span className="mx-2">·</span>

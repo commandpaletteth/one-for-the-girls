@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import Media from "@/components/Media";
+import RichText from "@/components/RichText";
 import { Container, Eyebrow } from "@/components/Section";
 import { isSet, type Topic } from "@/lib/content";
 import { getArticle as loadArticle } from "@/lib/data";
@@ -43,10 +44,8 @@ export default async function ArticlePage({ params }: Props) {
         <h1 className="font-serif text-4xl leading-tight text-foreground md:text-5xl">{article.title}</h1>
         <p className="mt-5 text-lg font-light text-muted">{article.excerpt}</p>
         <Media src={article.image} alt={article.title} label={c("photos")} className="mt-10 aspect-[16/9] rounded-[2rem]" />
-        <div className="mt-10 space-y-6 text-lg font-light leading-relaxed text-foreground/90">
-          {article.body.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
+        <div className="mt-10">
+          <RichText body={article.body} />
         </div>
       </Container>
     </article>
