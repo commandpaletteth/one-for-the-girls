@@ -3,12 +3,23 @@
 import { useState, useTransition } from "react";
 import { Loader2 } from "lucide-react";
 import { subscribe } from "@/app/[locale]/form-actions";
+import { Link } from "@/i18n/navigation";
 
 // Mailing club sign-up → saved in the database (Admin → Mailing Club).
 export default function SignupForm({
   labels,
 }: {
-  labels: { placeholder: string; button: string; note: string; done: string; invalid: string; error: string; notConnected: string };
+  labels: {
+    placeholder: string;
+    button: string;
+    note: string;
+    done: string;
+    invalid: string;
+    error: string;
+    notConnected: string;
+    consent: string;
+    privacy: string;
+  };
 }) {
   const [message, setMessage] = useState(labels.note);
   const [pending, start] = useTransition();
@@ -57,6 +68,12 @@ export default function SignupForm({
       </form>
       <p role="status" className="mt-3 text-sm text-white/80">
         {message}
+      </p>
+      <p className="mt-1 text-xs text-white/70">
+        {labels.consent}{" "}
+        <Link href="/privacy" className="underline hover:text-white">
+          {labels.privacy}
+        </Link>
       </p>
     </div>
   );

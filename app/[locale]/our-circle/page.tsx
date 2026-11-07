@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, CalendarHeart, Camera, Check, Megaphone, Quote, Smartphone, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import PhotoBox from "@/components/PhotoBox";
 import Media from "@/components/Media";
-import { getPartners, getStats, getTestimonials } from "@/lib/data";
+import { getPartners, getSiteImages, getStats, getTestimonials } from "@/lib/data";
 import { Container, Eyebrow, PageHeader, SectionHeading } from "@/components/Section";
 import { btnPrimary } from "@/lib/utils";
 
@@ -26,10 +25,11 @@ export default async function CirclePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Circle");
   const c = await getTranslations("Common");
-  const [partners, testimonials, { headline: stats, audience, note: statsNote }] = await Promise.all([
+  const [partners, testimonials, { headline: stats, audience, note: statsNote }, img] = await Promise.all([
     getPartners(),
     getTestimonials(),
     getStats(),
+    getSiteImages(),
   ]);
   const options = t.raw("options") as Option[];
   const traits = t.raw("traits") as string[];
@@ -109,7 +109,12 @@ export default async function CirclePage({ params }: Props) {
               const Icon = OFFER_ICONS[i] ?? Check;
               return (
                 <div key={i} className="overflow-hidden rounded-3xl bg-white shadow-sm">
-                  <PhotoBox label={c("photos")} className="aspect-[4/3] rounded-none border-0 border-b-2" />
+                  <Media
+                    src={img[`offer_${i + 1}`]}
+                    alt={o.title}
+                    label={c("photos")}
+                    className="aspect-[4/3] rounded-none border-0 border-b-2"
+                  />
                   <div className="p-5">
                     <span className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-blush text-primary">
                       <Icon size={16} />

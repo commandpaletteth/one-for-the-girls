@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Loader2, Send } from "lucide-react";
 import { btnPrimary, cn } from "@/lib/utils";
 import { submitContact } from "@/app/[locale]/form-actions";
+import { Link } from "@/i18n/navigation";
 
 type Props = {
   types: { id: string; title: string }[];
@@ -20,6 +21,8 @@ type Props = {
     error: string;
     invalid: string;
     notConnected: string;
+    consent: string;
+    privacy: string;
   };
 };
 
@@ -93,6 +96,12 @@ export default function ContactForm({ types, email, labels }: Props) {
           </>
         )}
       </button>
+      <p className="text-xs text-muted">
+        {labels.consent}{" "}
+        <Link href="/privacy" className="underline hover:text-primary">
+          {labels.privacy}
+        </Link>
+      </p>
       {note && (
         <p
           role="status"

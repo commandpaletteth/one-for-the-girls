@@ -6,6 +6,7 @@ import { requireAdmin, requireWritableAdmin } from "@/lib/auth";
 import { getResource, imageFields } from "@/lib/admin-resources";
 import { parseForm, type FieldErrors } from "@/lib/admin-validate";
 import { MEDIA_BUCKET } from "@/lib/supabase/env";
+import { SITE_IMAGE_KEYS, settingKey } from "@/lib/site-images";
 
 export type SaveState = { error?: string; fieldErrors?: FieldErrors; saved?: boolean } | undefined;
 
@@ -143,6 +144,32 @@ export async function saveSetting(key: string, _prev: SaveState, form: FormData)
   const { error } = await session.supabase.from("settings").upsert({ key, value });
   if (error) return { error: friendly(error.message) };
   refreshSite();
+  return { saved: true };
+}
+
+// Site photos (fixed photo spots) --------------------------------------------------------
+export async function saveSiteImages(_prev: SaveState, form: FormData): Promise<SaveState> {
+  const session = await requireAdmin();
+  if (session.preview) return { error: PREVIEW_MSG };
+
+  const rows: { key: string; value: string }[] = [];
+  for (const slot of SITE_IMAGE_KEYS) {
+    const v = String(form.get(slot) ?? "").trim();
+    if (v && !/^site\/[A-Za-z0-9._-]+$/.test(v)) return { error: "Invalid image." };
+    rows.push({ key: settingKey(slot), value: v });
+  }
+
+  const { supabase } = session;
+  const { data: old } = await supabase.from("settings").select("value").in("key", rows.map((r) => r.key));
+  const { error } = await supabase.from("settings").upsert(rows);
+  if (error) return { error: friendly(error.message) };
+
+  // Remove files that were replaced or removed.
+  const kept = new Set(rows.map((r) => r.value).filter(Boolean));
+  const gone = (old ?? []).map((r) => r.value as string).filter((v) => v && !kept.has(v));
+  if (gone.length) await supabase.storage.from(MEDIA_BUCKET).remove(gone);
+
+  refreshSite("site-photos");
   return { saved: true };
 }
 

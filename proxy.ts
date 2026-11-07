@@ -16,12 +16,14 @@ export default async function proxy(request: NextRequest) {
 
 async function adminGate(request: NextRequest, path: string) {
   const isLogin = path === "/admin/login";
+  // Reachable while logged out: forgot-password form and the email link landing page.
+  const isPublicAuth = path === "/admin/forgot" || path === "/admin/auth/callback";
   const toLogin = () => NextResponse.redirect(new URL("/admin/login", request.url));
 
   // Local preview (npm run dev, not connected): open everything, nothing can be saved.
   if (isAdminPreview()) return NextResponse.next();
   // Not connected yet (e.g. on Vercel): only the login page (which explains it) is reachable.
-  if (!hasSupabase()) return isLogin ? NextResponse.next() : toLogin();
+  if (!hasSupabase()) return isLogin || isPublicAuth ? NextResponse.next() : toLogin();
 
   let response = NextResponse.next({ request });
   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
@@ -41,12 +43,12 @@ async function adminGate(request: NextRequest, path: string) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && !isLogin) return toLogin();
+  if (!user && !isLogin && !isPublicAuth) return toLogin();
   if (user && isLogin) return NextResponse.redirect(new URL("/admin", request.url));
   return response;
 }
 
 export const config = {
   // Every page URL, except API routes, Next internals and files with an extension.
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|opengraph-image|twitter-image|apple-icon|icon|.*\\..*).*)"],
 };

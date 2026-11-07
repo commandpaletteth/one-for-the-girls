@@ -3,6 +3,7 @@ export const ADMIN_NAV = [
   { href: "/admin", label: "Overview", icon: "overview" },
   { href: "/admin/events", label: "Events", icon: "events" },
   { href: "/admin/gallery", label: "Gallery", icon: "gallery" },
+  { href: "/admin/site-photos", label: "Site Photos", icon: "sitePhotos" },
   { href: "/admin/girl-talk", label: "Girl Talk", icon: "articles" },
   { href: "/admin/partners", label: "Partners", icon: "partners" },
   { href: "/admin/testimonials", label: "Testimonials", icon: "testimonials" },

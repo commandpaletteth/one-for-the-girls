@@ -3,7 +3,8 @@ import content from "@/content/en.json";
 import { createPublicSupabase } from "@/lib/supabase/public";
 import { hasSupabase, mediaUrl } from "@/lib/supabase/env";
 import { isPastEvent, lastDay, todayInBangkok } from "@/lib/events";
-import type { Album, Article, EventItem, Faq, Partner, Recap, Stat, Testimonial, Update } from "@/lib/content";
+import { SITE_IMAGE_KEYS, settingKey } from "@/lib/site-images";
+import type { Album, AlbumItem, Article, EventItem, Faq, Partner, Recap, Stat, Testimonial, Update } from "@/lib/content";
 
 /**
  * Everything Jessica edits in /admin is read here.
@@ -88,15 +89,18 @@ export async function getRecaps(): Promise<Recap[]> {
 }
 
 // Gallery ----------------------------------------------------------------------------
+const isUuid = (s: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
+
 export async function getAlbums(): Promise<Album[]> {
-  if (!hasSupabase()) return content.Gallery.albums;
+  if (!hasSupabase()) return content.Gallery.albums.map((a, i) => ({ id: `sample-${i}`, ...a }));
   const { data, error } = await db()
     .from("albums")
-    .select("title, type, category, date_text, cover_path, album_items(count)")
+    .select("id, title, type, category, date_text, cover_path, album_items(count)")
     .order("event_date", { ascending: false, nullsFirst: false })
     .order("sort");
   if (error) fail("albums", error);
   return data.map((a) => ({
+    id: a.id,
     title: a.title,
     type: a.type,
     category: a.category,
@@ -104,6 +108,48 @@ export async function getAlbums(): Promise<Album[]> {
     count: (a.album_items as unknown as { count: number }[])[0]?.count ?? 0,
     image: mediaUrl(a.cover_path),
   }));
+}
+
+/** One album with its photos/videos, or undefined if it doesn't exist / is hidden. */
+export async function getAlbum(id: string): Promise<{ album: Album; items: AlbumItem[] } | undefined> {
+  if (!hasSupabase()) {
+    const album = (await getAlbums()).find((a) => a.id === id);
+    return album ? { album, items: [] } : undefined;
+  }
+  if (!isUuid(id)) return undefined;
+  const [albumRes, itemsRes] = await Promise.all([
+    db().from("albums").select("id, title, type, category, date_text, cover_path").eq("id", id).maybeSingle(),
+    db()
+      .from("album_items")
+      .select("kind, path, video_url, caption, width, height")
+      .eq("album_id", id)
+      .order("sort")
+      .order("created_at"),
+  ]);
+  if (albumRes.error) fail("album", albumRes.error);
+  if (itemsRes.error) fail("album photos", itemsRes.error);
+  const a = albumRes.data;
+  if (!a) return undefined;
+  const items: AlbumItem[] = itemsRes.data.map((it) => ({
+    kind: it.kind === "video" ? "video" : "photo",
+    src: mediaUrl(it.path),
+    videoUrl: it.video_url || undefined,
+    caption: it.caption,
+    width: it.width ?? undefined,
+    height: it.height ?? undefined,
+  }));
+  return {
+    album: {
+      id: a.id,
+      title: a.title,
+      type: a.type,
+      category: a.category,
+      date: a.date_text,
+      count: items.length,
+      image: mediaUrl(a.cover_path),
+    },
+    items,
+  };
 }
 
 // Girl Talk --------------------------------------------------------------------------
@@ -201,4 +247,18 @@ export async function getFaqs(): Promise<Faq[]> {
   const { data, error } = await db().from("faqs").select("question, answer").order("sort");
   if (error) fail("FAQs", error);
   return data.map((f) => ({ q: f.question, a: f.answer }));
+}
+
+// Site photos (Admin → Site Photos) ----------------------------------------------------
+/** Public URL per photo spot, e.g. images.hero. Missing = show the dashed placeholder. */
+export async function getSiteImages(): Promise<Record<string, string | undefined>> {
+  if (!hasSupabase()) return {};
+  const { data, error } = await db()
+    .from("settings")
+    .select("key, value")
+    .in("key", SITE_IMAGE_KEYS.map(settingKey));
+  if (error) fail("site photos", error);
+  return Object.fromEntries(
+    SITE_IMAGE_KEYS.map((k) => [k, mediaUrl(data.find((r) => r.key === settingKey(k))?.value || null)]),
+  );
 }

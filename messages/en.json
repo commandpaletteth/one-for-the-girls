@@ -15,7 +15,8 @@
     "explore": "Explore",
     "connect": "Connect",
     "rights": "© {year} One For The Girls. All rights reserved.",
-    "crafted": "Crafted by Command & Palette"
+    "crafted": "Crafted by Command & Palette",
+    "privacy": "Privacy Policy"
   },
   "Common": {
     "photos": "Photos",
@@ -29,7 +30,14 @@
     "back_to_girl_talk": "Back to Girl Talk",
     "photo_count": "{count, plural, =0 {No photos yet} =1 {1 item} other {# photos}}",
     "watch_video": "Watch the video",
-    "no_events": "New events are coming soon. Join the mailing club or follow us on Instagram to hear first."
+    "no_events": "New events are coming soon. Join the mailing club or follow us on Instagram to hear first.",
+    "back_to_gallery": "Back to The Gallery",
+    "close": "Close",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "photo_of": "Open photo {n} of {total}",
+    "photos_soon": "Photos from this album are coming soon.",
+    "view_album": "View album"
   },
   "Form": {
     "name": "Your name",
@@ -44,7 +52,10 @@
     "invalid": "Please check your name, email and message.",
     "signup_done": "You're in! Welcome to the club.",
     "signup_invalid": "Please enter a valid email address.",
-    "sending": "Sending..."
+    "sending": "Sending...",
+    "consent": "By sending this message, you agree that we use your details to reply to you.",
+    "signup_consent": "By signing up, you agree to receive our emails.",
+    "privacy_link": "Privacy Policy"
   },
   "NotFound": {
     "title": "Page not found",

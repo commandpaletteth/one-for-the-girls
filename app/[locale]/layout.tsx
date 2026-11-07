@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { NAV } from "@/lib/content";
+import { isIndexable, siteUrl } from "@/lib/site";
 // Self-hosted fonts (no request to Google at build or page load).
 import "@fontsource-variable/inter";
 import "@fontsource-variable/playfair-display";
@@ -25,8 +26,18 @@ export async function generateMetadata({ params }: Omit<Props, "children">): Pro
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Site" });
   return {
+    metadataBase: new URL(siteUrl()),
     title: { default: `${t("name")} | ${t("slogan")}`, template: `%s | ${t("name")}` },
     description: t("description"),
+    // app/opengraph-image.tsx lives outside [locale], so it is linked here explicitly.
+    openGraph: {
+      siteName: t("name"),
+      type: "website",
+      locale: "en_GB",
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${t("name")}: ${t("slogan")}` }],
+    },
+    twitter: { card: "summary_large_image" },
+    robots: isIndexable() ? undefined : { index: false, follow: false },
   };
 }
 

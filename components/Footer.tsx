@@ -50,7 +50,13 @@ export default async function Footer() {
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-2 border-t border-border/40 pt-6 text-xs text-muted/70 md:flex-row md:justify-between">
-          <p>{t("rights", { year: new Date().getFullYear() })}</p>
+          <p>
+            {t("rights", { year: new Date().getFullYear() })}
+            <span className="mx-2">·</span>
+            <Link href="/privacy" className="hover:text-primary">
+              {t("privacy")}
+            </Link>
+          </p>
           <p className="uppercase tracking-widest">{t("crafted")}</p>
         </div>
       </Container>

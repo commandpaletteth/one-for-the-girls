@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import PhotoBox from "@/components/PhotoBox";
+import Media from "@/components/Media";
+import { getSiteImages } from "@/lib/data";
 import { Container, PageHeader } from "@/components/Section";
 import { btnPrimary } from "@/lib/utils";
 
@@ -20,6 +21,7 @@ export default async function StoryPage({ params }: Props) {
   const t = await getTranslations("Story");
   const c = await getTranslations("Common");
   const paragraphs = t.raw("paragraphs") as string[];
+  const img = await getSiteImages();
 
   return (
     <>
@@ -27,7 +29,7 @@ export default async function StoryPage({ params }: Props) {
 
       <section className="pb-24">
         <Container>
-          <PhotoBox label={c("photos")} className="aspect-[16/9] rounded-[2rem] md:aspect-[21/9]" />
+          <Media src={img.story_main} alt={t("title")} label={c("photos")} className="aspect-[16/9] rounded-[2rem] md:aspect-[21/9]" />
           <div className="mx-auto mt-16 max-w-2xl space-y-6 text-lg font-light leading-relaxed text-muted">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
@@ -44,9 +46,14 @@ export default async function StoryPage({ params }: Props) {
             </figure>
           )}
           <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3">
-            <PhotoBox label={c("photos")} className="aspect-square" />
-            <PhotoBox label={c("photos")} className="aspect-square" />
-            <PhotoBox label={c("photos")} className="col-span-2 aspect-[2/1] md:col-span-1 md:aspect-square" />
+            <Media src={img.story_1} alt="" label={c("photos")} className="aspect-square" />
+            <Media src={img.story_2} alt="" label={c("photos")} className="aspect-square" />
+            <Media
+              src={img.story_3}
+              alt=""
+              label={c("photos")}
+              className="col-span-2 aspect-[2/1] md:col-span-1 md:aspect-square"
+            />
           </div>
         </Container>
       </section>

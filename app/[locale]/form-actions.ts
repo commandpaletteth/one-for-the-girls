@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createServiceSupabase } from "@/lib/supabase/admin";
 import { hasSupabase } from "@/lib/supabase/env";
 import content from "@/content/en.json";
+import { notifyNewMessage } from "@/lib/notify";
 
 export type FormResult = { ok: true } | { ok: false; reason: "invalid" | "not_connected" | "error" };
 
@@ -22,13 +23,16 @@ export async function submitContact(form: FormData): Promise<FormResult> {
   if (!name || !EMAIL.test(email) || !message) return { ok: false, reason: "invalid" };
   if (!connected()) return { ok: false, reason: "not_connected" };
 
+  const enquiryType = ENQUIRY_TYPES.includes(type) ? type : "general";
   const { error } = await createServiceSupabase()
     .from("contact_messages")
-    .insert({ name, email, message, enquiry_type: ENQUIRY_TYPES.includes(type) ? type : "general" });
+    .insert({ name, email, message, enquiry_type: enquiryType });
   if (error) {
     console.error("contact insert failed:", error.code);
     return { ok: false, reason: "error" };
   }
+  const typeTitle = content.Hello.types.find((t) => t.id === enquiryType)?.title ?? enquiryType;
+  await notifyNewMessage({ name, email, type: typeTitle, message });
   revalidatePath("/admin/messages");
   return { ok: true };
 }

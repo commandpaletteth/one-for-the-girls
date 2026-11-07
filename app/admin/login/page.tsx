@@ -5,8 +5,9 @@ import { hasSupabase, isAdminPreview } from "@/lib/supabase/env";
 
 export const metadata: Metadata = { title: "Sign in" };
 
-export default function AdminLoginPage() {
+export default async function AdminLoginPage({ searchParams }: { searchParams: Promise<{ link?: string }> }) {
   const connected = hasSupabase();
+  const { link } = await searchParams;
   return (
     <main className="flex min-h-screen items-center justify-center px-5 py-16">
       <div className="w-full max-w-sm rounded-[2rem] border border-border/50 bg-white p-8 shadow-sm">
@@ -25,9 +26,17 @@ export default function AdminLoginPage() {
             Not connected to the database yet. Add the Supabase keys to the environment variables.
           </p>
         )}
+        {link === "expired" && (
+          <p className="mt-6 rounded-2xl bg-blush px-4 py-3 text-sm text-primary-dark">
+            That link has expired or was already used. Request a new one below.
+          </p>
+        )}
         <div className="mt-8">
           <LoginForm disabled={!connected} />
         </div>
+        <Link href="/admin/forgot" className="mt-6 block text-center text-sm text-muted hover:text-primary">
+          Forgot password?
+        </Link>
       </div>
     </main>
   );

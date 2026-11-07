@@ -587,5 +587,65 @@
         "a": "Take a look at Our Circle for the options, then send us a partnership enquiry."
       }
     ]
+  },
+  "Privacy": {
+    "meta_title": "Privacy Policy",
+    "meta_description": "How One For The Girls collects, uses and protects your personal information.",
+    "eyebrow": "Privacy",
+    "title": "Privacy Policy",
+    "updated": "Last updated: November 2026",
+    "intro": "This policy explains what personal information One For The Girls collects through this website, why, and the choices you have. If anything is unclear, email us at oneforthegirlsuk@gmail.com.",
+    "sections": [
+      {
+        "heading": "Who we are",
+        "paragraphs": [
+          "One For The Girls (“we”, “us”) is a community that organises events for women in Bangkok and London. We are responsible for the personal information described in this policy.",
+          "Contact: oneforthegirlsuk@gmail.com"
+        ]
+      },
+      {
+        "heading": "What we collect",
+        "paragraphs": [
+          "Say Hello form: your name, email address, the type of enquiry and your message.",
+          "Mailing club: your email address and the date you signed up.",
+          "Event tickets: tickets are sold through Ticketmelon, which handles your payment and booking under its own privacy policy. Ticketmelon shares the buyer details we need to run the event with us (such as name, email and phone number).",
+          "We do not use advertising cookies or tracking pixels on this website."
+        ]
+      },
+      {
+        "heading": "How we use it",
+        "paragraphs": [
+          "To reply to your message or enquiry.",
+          "To send mailing club emails about our events and community news. Every email lets you unsubscribe.",
+          "To organise events you have booked and to understand how our community grows (for example, how many people attend).",
+          "We never sell your personal information."
+        ]
+      },
+      {
+        "heading": "Where it is stored",
+        "paragraphs": [
+          "The website is hosted by Vercel. Messages and sign-ups are stored with Supabase on servers in Singapore. We may use an email service to send mailing club emails. These providers process information only on our behalf and under their own security commitments."
+        ]
+      },
+      {
+        "heading": "How long we keep it",
+        "paragraphs": [
+          "Messages are kept as long as needed to deal with your enquiry and for our records, then deleted. Mailing club emails are kept until you unsubscribe or ask us to remove you."
+        ]
+      },
+      {
+        "heading": "Your rights",
+        "paragraphs": [
+          "Depending on where you live (including under Thailand's Personal Data Protection Act and the UK GDPR), you can ask us to access, correct or delete your information, withdraw your consent, or object to how we use it. Email oneforthegirlsuk@gmail.com and we will reply as soon as we can.",
+          "You can also complain to the data protection authority where you live, such as the PDPC in Thailand or the ICO in the UK."
+        ]
+      },
+      {
+        "heading": "Changes",
+        "paragraphs": [
+          "We may update this policy from time to time. The date at the top shows the latest version."
+        ]
+      }
+    ]
   }
 }

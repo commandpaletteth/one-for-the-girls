@@ -3,12 +3,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowRight, Dumbbell, Heart, Instagram, Palette, Sparkles, Users } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import PhotoBox from "@/components/PhotoBox";
+import Media from "@/components/Media";
 import EventCard from "@/components/EventCard";
 import SignupForm from "@/components/SignupForm";
 import { Container, Eyebrow, SectionHeading } from "@/components/Section";
 import { btnPrimary, btnSecondary } from "@/lib/utils";
 import { isSet, type Category } from "@/lib/content";
-import { getUpcomingEvents, getUpdates } from "@/lib/data";
+import { getSiteImages, getUpcomingEvents, getUpdates } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
 type Value = { title: string; desc: string };
@@ -35,7 +36,7 @@ export default async function HomePage({ params }: Props) {
   const c = await getTranslations("Common");
   const f = await getTranslations("Form");
   const categories = (await getTranslations("Categories")).raw("items") as Category[];
-  const [events, updates] = await Promise.all([getUpcomingEvents(3), getUpdates(3)]);
+  const [events, updates, img] = await Promise.all([getUpcomingEvents(3), getUpdates(3), getSiteImages()]);
   const values = t.raw("values") as Value[];
   const eventLabels = { photos: c("photos"), book: c("book"), bookingSoon: c("booking_soon") };
 
@@ -69,7 +70,9 @@ export default async function HomePage({ params }: Props) {
               </div>
             </div>
             <div className="relative mx-auto w-full max-w-md">
-              <PhotoBox
+              <Media
+                src={img.hero}
+                alt={site("name")}
                 label={c("photos")}
                 className="aspect-[4/5] rotate-2 rounded-[2.5rem] border-[3px] md:aspect-square"
               />
@@ -109,7 +112,12 @@ export default async function HomePage({ params }: Props) {
               const Icon = CATEGORY_ICONS[cat.id] ?? Sparkles;
               return (
                 <div key={cat.id} className="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm">
-                  <PhotoBox label={c("photos")} className="aspect-[4/3] rounded-none border-0 border-b-2" />
+                  <Media
+                    src={img[`category_${cat.id}`]}
+                    alt={cat.name}
+                    label={c("photos")}
+                    className="aspect-[4/3] rounded-none border-0 border-b-2"
+                  />
                   <div className="p-6">
                     <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-blush text-primary">
                       <Icon size={18} />
@@ -170,6 +178,8 @@ export default async function HomePage({ params }: Props) {
               invalid: f("signup_invalid"),
               error: f("error"),
               notConnected: f("signup_not_connected"),
+              consent: f("signup_consent"),
+              privacy: f("privacy_link"),
             }}
           />
         </div>
@@ -199,9 +209,16 @@ export default async function HomePage({ params }: Props) {
         <Container>
           <SectionHeading eyebrow={t("instagram_eyebrow")} title={t("instagram_title")} intro={t("instagram_text")} />
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <PhotoBox key={i} label={c("photos")} className="aspect-square" />
-            ))}
+            {Array.from({ length: 6 }).map((_, i) => {
+              const src = img[`instagram_${i + 1}`];
+              return src ? (
+                <a key={i} href={site("instagram_url")} target="_blank" rel="noopener noreferrer" className="block">
+                  <Media src={src} alt={site("instagram_handle")} label={c("photos")} className="aspect-square" />
+                </a>
+              ) : (
+                <PhotoBox key={i} label={c("photos")} className="aspect-square" />
+              );
+            })}
           </div>
           <div className="mt-10 text-center">
             <a href={site("instagram_url")} target="_blank" rel="noopener noreferrer" className={btnPrimary}>

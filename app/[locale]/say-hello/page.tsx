@@ -77,6 +77,8 @@ export default async function SayHelloPage({ params }: Props) {
                     error: f("error"),
                     invalid: f("invalid"),
                     notConnected: f("not_connected"),
+                    consent: f("consent"),
+                    privacy: f("privacy_link"),
                   }}
                 />
               </Suspense>

@@ -9,6 +9,7 @@ import {
   ExternalLink,
   HelpCircle,
   Images,
+  ImageIcon,
   LayoutDashboard,
   LogOut,
   Mail,
@@ -17,6 +18,7 @@ import {
   MessageSquareText,
   NotebookPen,
   Handshake,
+  KeyRound,
   Quote,
   X,
 } from "lucide-react";
@@ -28,6 +30,7 @@ const ICONS = {
   overview: LayoutDashboard,
   events: CalendarHeart,
   gallery: Images,
+  sitePhotos: ImageIcon,
   articles: NotebookPen,
   partners: Handshake,
   testimonials: Quote,
@@ -77,6 +80,13 @@ export default function AdminNav({ email }: { email: string }) {
         >
           <ExternalLink size={18} /> View website
         </a>
+        <Link
+          href="/admin/account"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted hover:bg-blush hover:text-primary"
+        >
+          <KeyRound size={18} /> Account
+        </Link>
         <p className="truncate px-3 pt-2 text-xs text-muted" title={email}>
           {email}
         </p>

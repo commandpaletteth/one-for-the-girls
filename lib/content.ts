@@ -23,7 +23,17 @@ export type Recap = {
   image?: string;
 };
 
-export type Album = { title: string; type: string; category: string; date: string; count: number; image?: string };
+export type Album = {
+  id: string;
+  title: string;
+  type: string;
+  category: string;
+  date: string;
+  count: number;
+  image?: string;
+};
+
+export type AlbumItem = { kind: "photo" | "video"; src?: string; videoUrl?: string; caption: string; width?: number; height?: number };
 
 export type Topic = { id: string; name: string; desc: string };
 

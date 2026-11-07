@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Link } from "@/i18n/navigation";
 import FilterTabs from "./FilterTabs";
 import Media from "./Media";
 import { isSet, type Album, type Category } from "@/lib/content";
@@ -32,7 +33,7 @@ export default function GalleryBrowser({ types, categories, albums, labels }: Pr
         {shown.map((a, i) => {
           const isVideo = a.type === "videos";
           return (
-            <article key={`${a.title}-${i}`} className="group">
+            <Link key={a.id} href={`/gallery/${a.id}`} className="group block">
               <Media
                 src={a.image}
                 alt={a.title}
@@ -49,7 +50,7 @@ export default function GalleryBrowser({ types, categories, albums, labels }: Pr
                 {isSet(a.date) && <span className="text-muted"> · {a.date}</span>}
               </p>
               <h3 className="mt-1 font-serif text-xl text-foreground transition-colors group-hover:text-primary">{a.title}</h3>
-            </article>
+            </Link>
           );
         })}
       </div>
